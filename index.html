@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helsinki City Council Analysis</title>
+    <style>
+        /* General Styles (Existing Styles - Keeping them for context) */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #e9e9e9; /* Light background for contrast */
+            color: #333; /* Darker text for readability */
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Tab Styles (Existing Styles) */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 16px;
+        }
+
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        .tab button.active {
+            background-color: #003366; /* Dark Marine Blue */
+            color: white;
+        }
+
+        .tabcontent {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* Header Styles (Existing Styles) */
+        h1 {
+            color: #003366; /* Dark Marine Blue */
+            text-align: center;
+        }
+
+        /* Content Styles (Existing Styles) */
+        p {
+            line-height: 1.6;
+        }
+
+        /* Link Styles (Existing Styles) */
+        a {
+            color: #007bff; /* Default link color - keep for contrast */
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer Styles (Existing Styles) */
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #003366; /* Dark Marine Blue */
+            color: white;
+            border-radius: 8px;
+        }
+
+       /* Language Switcher Styles (Existing Styles) */
+        .language-switcher {
+            position: absolute; /* Or 'fixed' if you want it to stay in place */
+            top: 20px; /* Adjust as needed */
+            right: 100px; /* Adjust as needed */
+            z-index: 1000; /* Ensure it's above other elements */
+        }
+
+        .language-switcher button {
+            background-color: #003366;
+            border: none;
+            color: rgb(255, 255, 255);
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .language-switcher button:hover {
+            background-color: #bbb;
+        }
+
+.header-image-container {
+    position: relative; /* Needed for absolute positioning of the overlay */
+    margin-bottom: 0px;
+}
+
+/* Update the style of the image to take on the container */
+#main-image{
+    border-radius: 8px;  /*If the old tag does not take up all information */
+    width:100%; /*Full width of container */
+    max-height: 400px; /*Max Size of Image */
+    object-fit: cover; /*Aspect Ration */
+}
+
+        /* Councillor Search Styles (Existing Styles) */
+/* Councillor Search Styles (Existing Styles) */
+#councillorSearch {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Important to include padding/border in the width */
+}
+
+#councillorResults {
+    margin-top: 20px;
+}
+
+.councillor-profile {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+/* New CSS for Councillor Layout */
+.councillor-profile {
+    display: flex;             /* Use flexbox */
+    flex-direction: column;   /* Stack elements vertically */
+    align-items: flex-start;  /* Align items to the start */
+}
+
+.image-info-container {
+    display: flex;             /* Use flexbox to put image and info side-by-side */
+    align-items: center;       /* Vertically align image and info */
+    width: 100%;              /* Take up full width of profile */
+}
+.map-image {
+    width: 100%;    /*Take up all possible space*/
+    max-height: 1000px;    /*Height */
+    object-fit: contain;    /*Aspect Ratio */
+    margin-top: 10px;    /*Space to the Votes text */
+    border-radius: 8px; /*Round*/
+}
+
+.councillor-image {
+    width: 150px;          /* Adjust size as needed */
+    height: 150px;         /* Adjust size as needed */
+    border-radius: 50%;     /* Make it a circle */
+    object-fit: cover;    /* Maintain aspect ratio */
+    margin-right: 15px;     /* Space between image and text */
+}
+
+.councillor-info-container {
+    flex: 1;                /* Let the info container take up the remaining space */
+}
+
+.councillor-separator {
+    width: 100%;
+    height: 3px;
+    background-color: #8b8b8b; /* Light gray */
+    margin: 15px 0;        /* Add spacing above and below */
+}
+
+/* Example CSS for Markdown content - adjust to your needs */
+.councillor-profile h1,
+.councillor-profile h2,
+.councillor-profile h3 {
+    margin-top: 0.5em;
+    margin-bottom: 0.25em;
+    color: #003366; /* Dark Marine Blue - adjust */
+}
+.image-caption {
+    /* Existing styles - KEEP THESE */
+    text-align: left;   /*The Image to be centered */
+    margin-top: 40px;   /*Spacing to Image to separate text */
+
+    /* New styles to change text size: */
+    font-size: 1.2em;       /* Change em or px as necessary for scaling text  */
+    font-style: normal;      /* Change if you do not want italic, for normal code this will still work */
+
+    margin-top: 0.5em;       /* Match top margin */
+    margin-bottom: 0.25em;    /* Match bottom margin */
+    color: #003366;         /* Match color (Dark Marine Blue) */
+    font-weight: bold;
+}
+
+.councillor-profile p {
+    line-height: 1.5;
+    margin-bottom: 0.5em;
+}
+
+/* New CSS for side-by-side images */
+.two-image-container {
+    display: flex;           /* Use flexbox for side-by-side layout */
+    justify-content: space-around; /* Distribute space evenly */
+    align-items: stretch;
+    width: 100%;             /* Take full width */
+    margin-top: 30px;        /* Add some space above the images */
+    margin-bottom: 30px;
+}
+
+.side-image {
+    width: 48%;             /* Adjust size as needed (leave some space for margin) */
+    height: auto;
+    max-height: none;        /* Limit the height */
+    object-fit: fill;      /* Keep aspect ratio, fit within the container */
+    border-radius: 8px;     /* Optional: round the corners */
+}
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
+    .two-image-container {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Center items horizontally */
+        height: auto;       /* Adjust if need be */
+    }
+
+    .side-image {
+        width: 80%;       /* Take up more of the width on smaller screens */
+        max-height: 300px; /* Adjust the max-height as needed */
+        margin-bottom: 10px;  /* Some buffer */
+    }
+}
+/*  Basic Party styling CSS for Party page */
+.party-profile {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    display: none; /* Hide all party profiles by default */
+}
+
+/* Logo and Name: Put the logo and name side by side */
+.logo-name-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.party-logo {
+    width: 100px;  /* Adjust logo size as needed */
+    height: 100px; /* Adjust logo size as needed */
+    margin-right: 15px; /* Space between logo and name */
+    border-radius: 8px; /* Optional: round the corners */
+}
+
+.party-profile h2 {
+    margin: 0; /* Remove default heading margin */
+    color: #003366; /* Match heading color with the rest of site */
+}
+
+/* The summary CSS */
+.manifesto-summary {
+    line-height: 1.6;
+    margin-bottom: 15px;
+    display: block; /* Ensure it's not accidentally set to 'none' */
+    word-wrap: break-word; /* Handle long words */
+
+}
+
+/* Separator: Change the properties of that line*/
+.party-separator {
+    width: 100%;
+    height: 3px;
+    background-color: #8b8b8b;
+    margin: 15px 0px;
+    margin-bottom: 20px;
+}
+
+
+.image-container {
+    display: flex;           /* Use flexbox for side-by-side layout */
+    justify-content: space-around; /* Distribute space evenly */
+    align-items: stretch;
+    width: 100%;             /* Take full width */
+    margin-top: 30px;   
+    margin-bottom: 30px; 
+}
+
+/* The image size for these graphs*/
+.graph-image {
+    width: 48%;             /* Adjust size as needed (leave some space for margin) */
+    height: auto;
+    max-height: none;        /* Limit the height */
+    object-fit: fill;      /* Keep aspect ratio, fit within the container */
+    border-radius: 8px;
+}
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
+    .image-container {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Center items horizontally */
+        height: auto;       /* Adjust if need be */
+    }
+
+    .graph-image {
+        width: 80%;       /* Take up more of the width on smaller screens */
+        max-height: 300px; /* Adjust the max-height as needed */
+        margin-bottom: 10px;  /* Some buffer */
+    }
+}
+
+
+/* And of course, the final map*/
+.map-image {
+    width: 100%;    /*Take up all possible space*/
+    max-height: 1000px;    /*Height */
+    object-fit: contain;    /*Aspect Ratio */
+    margin-top: 30px;
+    margin-bottom: 30px;    /*Space to the Votes text */
+    border-radius: 8px; /*Round*/
+}
+
+.party-selection {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center; /* Vertically center the label and select */
+}
+
+.party-selection label {
+    margin-right: 10px;
+    font-weight: bold; /* Make the label text bolder */
+    font-size: 16px; /* Increase font size */
+    color: #555; /* Darken the label color */
+}
+
+.party-selection select {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    width: 250px; /* Specify width for a consistent look */
+    appearance: none; /* Remove default arrow */
+    -webkit-appearance: none; /* Remove default arrow (Safari) */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>'); /* Custom arrow */
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+    background-position-y: 50%;
+}
+
+.party-selection select:focus {
+    outline: none;
+    border-color: #007bff; /* Highlight border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a subtle shadow on focus */
+}
+.disclaimer {
+    text-align: center;
+    color: #cc6633; /* Soft orange */
+    font-size: 0.8em;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: rgba(204, 102, 51, 0.1); /* Light version of the same color */
+    border-radius: 4px;
+    font-style: italic;
+}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="language-switcher">
+            <button id="enButton" onclick="setLanguage('en')">English</button>
+            <button id="fiButton" onclick="setLanguage('fi')">Suomi</button>
+        </div>
+
+        <h1>Helsingin Kuntavaalikone 2025</h1>
+
+        <div class="header-image-container">
+            <img id = "main-image" src="helsingin_kaupungintalo.jpg" alt="Helsinki Kaupunkitalo">
+            <div class="header-image-overlay"></div>
+        </div>
+
+        <p class="disclaimer" style="text-align: center;"
+         data-en="AI-generated content - may contain errors" 
+         data-fi="Teköälyllä luotu sisältö - voi sisältää virheitä">AI-generated content - may contain errors</p>
+
+        <div class="tab">
+            <button class="tablinks active" onclick="openTab(event, 'About')">About</button>
+            <button class="tablinks" onclick="openTab(event, 'Parties')">Parties</button>
+            <button class="tablinks" onclick="openTab(event, 'Councillors')">Councillors</button>
+            <button class="tablinks" onclick="openTab(event, 'FAQ')">FAQ</button>
+        </div>
+
+        <div id="About" class="tabcontent" style="display:none;">
+            <h2 data-en="Welcome to the Helsinki Municipal Election Machine" data-fi="Tervetuloa Helsingin kunnallisvaalikoneeseen">About this Project</h2>
+        
+            <p data-en="This project aims to provide an accessible and informative overview of what happened in the last legislative period of the Helsinki City Council.  
+            It uses AI to summarise and visualise the contents of councillors' speeches as well as party manifestos for the municipal election to highlight key issues and political positions. 
+            It is designed as an alternative to Yle's Vaalikone to help you find information on what has actually happened in the past legislative period and to make an informed voting decision."
+               data-fi="Tämän hankkeen tavoitteena on tarjota helppokäyttöinen ja informatiivinen katsaus Helsingin kaupunginvaltuuston viimeisen vaalikauden tapahtumiin.  
+               Siinä käytetään tekoälyä tiivistämään ja visualisoimaan valtuutettujen puheenvuorojen sisältöä sekä puolueiden kunnallisvaalien ohjelmajulistuksia, jotta keskeiset kysymykset ja poliittiset kannanotot tulevat esiin. 
+               Se on suunniteltu vaihtoehdoksi Ylen Vaalikoneelle, joka auttaa sinua löytämään tietoa siitä, mitä kuluneella vaalikaudella on todellisuudessa tapahtunut, ja tekemään tietoon perustuvan äänestyspäätöksen."></p>
+        
+            <h3 data-en="Select a Party or Search for a Councillor to see: " data-fi="Tietolähteet">Data Sources</h3>
+            <ul>
+                <li data-en="Their party manifesto or speeches summarised" data-fi="Heidän puolueensa ohjelma tai puheet tiivistettynä.">Helsinki City Council Meeting Minutes (2024)</li>
+                <li data-en="The left-right and gal-tan positioning of the parties' councillor and their speeches" data-fi="Puolueen/valtuutetun korostetuimmat aiheet">Publicly available councillor profiles</li>
+                <li data-en="The most emphasised topics of the party/councillor" data-fi="Julkisesti saatavilla olevat valtuutettujen profiilit">Publicly available councillor profiles</li>
+                <li data-en="A map that shows where the party/councillor got most of its votes from" data-fi="Kartta, josta käy ilmi, mistä puolue/valtuutettu sai eniten ääniä.">Publicly available councillor profiles</li>
+            </ul>
+
+            <h3 data-en="Disclaimer" data-fi="Vastuuvapauslauseke">Disclaimer</h3>
+            <p data-en="
+            This analysis is based on publicly available meeting minutes from the Helsinki City Council between 2021 and 5th February 2025. 
+            It uses Large Language Models to analyse, classify and summarise speeches and is automated to a large extent. 
+            This means that some results may be biased or inaccurate. While every effort has been made to ensure accuracy, the results should be interpreted with caution.
+            Especially the Finnish language summaries, as current AI models are not as capable in small languages compared to the good results they show in English. "
+             data-fi="Tämä analyysi perustuu Helsingin kaupunginvaltuuston julkisesti saatavilla oleviin kokouspöytäkirjoihin vuosien 2021 ja 5. helmikuuta 2025 väliseltä ajalta. 
+             Siinä käytetään suuria kielimalleja puheiden analysointiin, luokitteluun ja tiivistämiseen, ja se on pitkälti automatisoitu. 
+             Tämä tarkoittaa, että jotkin tulokset voivat olla puolueellisia tai epätarkkoja. Vaikka tarkkuus on pyritty kaikin tavoin varmistamaan, tuloksia on tulkittava varoen.
+             Erityisesti suomen kielen yhteenvetoihin, sillä nykyiset tekoälymallit eivät ole yhtä kyvykkäitä pienillä kielillä verrattuna englannin kielellä saavutettuihin hyviin tuloksiin."></p>
+
+        </div>
+
+       <div id="Parties" class="tabcontent">
+            <h2 data-en="Parties" data-fi="Puolueet">Parties</h2>
+            <div class="party-selection">
+                
+                <select id="partySelect" onchange="displaySelectedParty()">
+                    <option value="" data-en="-- Select --" data-fi="-- Valitse --">-- Select --</option>
+                </select>
+            </div>
+            <div id="partyTabContent">
+
+            </div>
+        </div>
+
+       <div id="Councillors" class="tabcontent" style="display:block;">
+            <h2 data-en="Councillor Summary Page" data-fi="Valtuutettujen yhteenveto">Councillor Analysis</h2>
+
+            <input type="text" id="councillorSearch" placeholder="Search Councillor Names...">
+
+            <div id="councillorResults">
+                <!-- Councillor profiles will be displayed here -->
+            </div>
+        </div>
+
+        <div id="FAQ" class="tabcontent">
+            <h2 data-en="Frequently Asked Questions" data-fi="Usein kysyttyjä kysymyksiä">Frequently Asked Questions</h2>
+        
+            <p data-en="The website was created by me, Korbinian Pauli. 
+            I'm 25 years old, originally from Germany, and have a B.A. in Political and Computer Science and a M.Sc. in Social Data Science. 
+            I made this website partially as a project to showcase my skills to potential employers, partially to improve my Finnish skills and partially so that people in Helsinki have a better alternative to Yle's Vaalikone.
+            I believe that it's important to know what Councillors and Parties have been talking about in City Council meetings and this website is an effort to make this information more easily accessible to a wider audience.  Including residents from other countries who are eligible to vote, but may find it difficult to find information in English.   " 
+            data-fi="Sivuston on luonut Korbinian Pauli. Olen 25-vuotias, alunperin Saksasta, ja minulla on kandidaatin tutkinto politiikan ja tietojenkäsittelytieteen alalta sekä maisterin tutkinto sosiaalisesta datatieteestä. Tein tämän sivuston osittain projektina esitelläkseni taitojani mahdollisille työnantajille, osittain parantaakseni suomen kielen taitojani ja osittain siksi, että helsinkiläisillä olisi parempi vaihtoehto Ylen Vaalikoneelle. Uskon, että on tärkeää tietää, mistä valtuutetut ja puolueet ovat puhuneet kaupunginvaltuuston kokouksissa, ja tämä sivusto on pyrkimys tehdä tästä tiedosta helpommin saavutettavaa laajemmalle yleisölle, mukaan lukien asukkaat muista maista, jotka ovat äänioikeutettuja, mutta joiden voi olla vaikea löytää tietoa englanniksi.">
+            <h4 data-en="Is the information displayed here accurate?" data-fi="Onko tässä esitetty tieto tarkkaa?">accuracy</h4>
+            <p data-en="The summaries, left-right and topic classification results are AI generated and are therefore to be taken with a grain of salt. I have of course checked the English language results and they generally align with my understanding of the political situation. As with all things on the internet though, think critically and if in doubt, double check information from trusted sources such as the official website of the Helsinki City Council." 
+            data-fi="Yhteenvedot, vasen-oikea- ja aihepiiriluokittelutulokset ovat tekoälyn tuottamia, joten niihin on syytä suhtautua varauksella. Olen toki tarkistanut englanninkieliset tulokset, ja ne yleensä vastaavat käsitystäni poliittisesta tilanteesta. Kuten kaikkeen internetissä, suhtaudu kriittisesti ja tarkista epäilyttävät tiedot luotettavista lähteistä, kuten Helsingin kaupunginvaltuuston virallisilta verkkosivuilta."> accuracy</p>
+            <a href="https://paatokset.hel.fi/fi"> https://paatokset.hel.fi/fi</a>
+
+            <h4 data-en="Is this legal according to GDPR?" data-fi="Onko tämä laillista GDPR:n mukaan?">GDPR</h4>
+            <p data-en="Yes. The grounds for collecting this data falls within Art. 6 (1e) as this is carried out in the public interest. 
+                While political data is generally considered a special category of personal data according to Article 9 GDPR, the speeches in the Helsinki City Council are manifestly made public by the Councillors and related to substantial public interest.
+                The only data that is collected for this webpage is the name, party membership, all speeches in the City Council from the current legislative period and number of votes in the 2021 Municipal elections. I am commited to respecting privacy rights and ensuring data accuracy. If you believe any information is inaccurate, please reach out. " data-fi="Kyllä. Perusteet tämän tiedon keräämiselle kuuluvat artiklaan 6 (1e), koska tämä suoritetaan yleisen edun mukaisesti. Vaikka poliittisia tietoja pidetään yleensä henkilötietojen erityiskategoriana GDPR:n artiklan 9 mukaan, Helsingin kaupunginvaltuuston puheet ovat valtuutettujen selvästi julkisia ja liittyvät merkittävään yleiseen etuun. Ainoat tiedot, jotka kerätään tälle verkkosivulle, ovat nimi, puolueen jäsenyys, kaikki puheet kaupunginvaltuustossa nykyiseltä vaalikaudelta ja äänimäärä vuoden 2021 kunnallisvaaleissa. Olen sitoutunut kunnioittamaan yksityisyyden suojaa ja varmistamaan tietojen oikeellisuuden. Jos uskot, että jokin tieto on virheellinen, ota yhteyttä."> GDPR</p>
+        
+            <h4 data-en="How do i get in contact?" data-fi="Miten saan yhteyttä?">contact</h4>
+            <p data-en="You can reach out on LinkedIn or via E-Mail if you have any suggestions, spotted an error, want custom made analyses for your organisation or hire a skilled data scientist :D" data-fi="Voit ottaa yhteyttä LinkedInissä tai sähköpostitse, jos sinulla on ehdotuksia, olet havainnut virheen, haluat räätälöityjä analyysejä organisaatiollesi tai haluat palkata ammattitaitoisen datatieteilijän."> contact</p>
+            <a href="https://www.linkedin.com/in/kpauli">Korbinian Pauli on LinkedIn</a>
+
+            <h4 data-en="How do i interpret the topic graph?" data-fi="Miten tulkitsen aihepiirikaaviota?">topic graphs</h4>
+            <p data-en="For this graph, each individual speech was first classified into one or several topics by an LLM and how much of the speech was about that topic. 
+            If a councillor spoke about public transport and mentioned environmental considerations along with it, the classification looked something akin to Public Transport: 70%, Environment: 30%. 
+            The graphs then visualise the average issue emphasis on a councillor or party basis. A value of, for example, 9.6% for environmental issues means that about 9.6% of the time spoken was about environmental issues.
+            It generally indicates which issues parties or councillors are focussing on. It does not say anything about what has been said however. The topics were taken from a survey of the Municipal development foundation (kaks.fi). "
+            data-fi="Tässä kaaviossa jokainen yksittäinen puhe luokiteltiin ensin yhteen tai useampaan aihepiiriin LLM:n avulla, ja määritettiin kuinka suuri osa puheesta koski kyseistä aihepiiriä. Jos valtuutettu puhui julkisesta liikenteestä ja mainitsi siihen liittyen ympäristönäkökohdat, luokittelu näytti suunnilleen tältä: Julkinen liikenne: 70 %, Ympäristö: 30 %. Kaaviot visualisoivat sitten keskimääräisen aihepainotuksen valtuutetun tai puolueen tasolla. Esimerkiksi arvo 9,6 % ympäristöasioissa tarkoittaa, että noin 9,6 % puhutusta ajasta koski ympäristöasioita. Se yleensä osoittaa, mihin asioihin puolueet tai valtuutetut keskittyvät. Se ei kuitenkaan kerro mitään siitä, mitä on sanottu. Aihepiirit on otettu Kunnallisalan kehittämissäätiön (kaks.fi) tekemästä kyselystä."> topic graphs</p>
+
+            <h4 data-en="How do i interpret the Left-Right/Gal-TAN graph?" data-fi="Miten tulkitsen vasemmisto-oikeisto/vihreä-arvot-kaaviota?">galtan graphs</h4>
+            <p data-en="On the party page, this graph shows the left-right and gal-tan positioning of all councillors (and deputies) of the party. 
+            For each councillor, i combined all their speeches into one document and asked an LLM to score the Councillor on the economic left right axis as well as gal-tan axis. A lower score on the x-axis means they are more left leaning and preferring government intervention in the economy, a higher score means they are more right leaning and prefering a free market.
+            The gal-tan axis takes into account their stances on cultural and social issues. A lower score means they tend to be more progressive, open to multiculturalism, environmentalism etc, while a higher score indicates more traditional values, national sovereignty, stricter immigration policies etc. 
+            For the Councillor page, each dot represents a single speech."
+             data-fi="Puoluesivulla tämä kaavio näyttää kaikkien puolueen valtuutettujen (ja varajäsenten) vasemmisto-oikeisto- ja vihreä-arvot-sijoittelun. Jokaisen valtuutetun osalta yhdistin kaikki heidän puheensa yhdeksi dokumentiksi ja pyysin LLM:ää pisteyttämään valtuutetun sekä taloudellisella vasemmisto-oikeisto-akselilla että vihreä-arvot-akselilla. Pienempi pistemäärä x-akselilla tarkoittaa, että he ovat enemmän vasemmalle kallellaan ja suosivat hallituksen väliintuloa talouteen, suurempi pistemäärä tarkoittaa, että he ovat enemmän oikealle kallellaan ja suosivat vapaita markkinoita. Vihreä-arvot-akseli ottaa huomioon heidän kantansa kulttuurisiin ja sosiaalisiin kysymyksiin. Pienempi pistemäärä tarkoittaa, että he ovat yleensä edistyksellisempiä, avoimempia monikulttuurisuudelle, ympäristönsuojelulle jne., kun taas suurempi pistemäärä osoittaa perinteisempiä arvoja, kansallista itsemääräämisoikeutta, tiukempaa maahanmuuttopolitiikkaa jne. Valtuutettujen sivulla jokainen piste edustaa yhtä puhetta."> galtan graphs</p>
+
+             <h4 data-en="How do i interpret the Maps?" data-fi="Miten tulkitsen karttoja?">maps</h4>
+             <p data-en="The maps show where the party or councillor got most of their votes from in the 2021 municipal elections. The darker the color, the more votes they got from that area. 
+             The data is based on the official election results Statistics Finland. For the Party page, the map shows the % of votes in each district that the party got, for individual Councillors, it shows the absolute number of votes.
+             The map generally visualises where Parties get their votes from and showcase the political and demographic differences between districts quite well. SDP and PS get more votes in Eastern Helsinki, while Vasemmisto tends to do well in and around Kallio, while Kokoomus dominates richer areas such as the downtown parts of Helsinki "
+              data-fi="Kartat näyttävät, mistä puolue tai valtuutettu sai suurimman osan äänistään vuoden 2021 kunnallisvaaleissa. Mitä tummempi väri, sitä enemmän ääniä he saivat kyseiseltä alueelta. Tiedot perustuvat Tilastokeskuksen virallisiin vaalituloksiin. Puoluesivulla kartta näyttää puolueen saamien äänien prosenttiosuuden kussakin piirissä, yksittäisten valtuutettujen osalta se näyttää äänien absoluuttisen määrän. Kartta visualisoi yleensä, mistä puolueet saavat äänensä, ja tuo esiin poliittiset ja demografiset erot piirien välillä melko hyvin. SDP ja PS saavat enemmän ääniä Itä-Helsingissä, kun taas Vasemmisto menestyy yleensä Kalliossa ja sen ympäristössä, kun taas Kokoomus hallitsee rikkaampia alueita, kuten Helsingin keskusta-alueita."> maps</p>
+        
+        </div>
+
+        <footer>
+            &copy; Korbinian Pauli
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Optional: Set the default active tab when the page loads
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementsByClassName("tablinks")[0].click(); // Open first tab by default
+            loadLanguage();
+            loadCouncillorData();
+            loadPartyData(); // load
+        });
+
+        // Language Switching Functionality
+        function setLanguage(lang) {
+            localStorage.setItem('language', lang); // Store the selected language
+            updateContent(lang);
+            // updateContent(lang);
+        }
+
+        function loadLanguage() {
+            const lang = localStorage.getItem('language') || 'en'; // Default to English
+            updateContent(lang);
+        }
+
+        function updateContent(lang) {
+            console.log("updateContent() called with language:", lang);
+            const translatableElements = document.querySelectorAll('[data-en]'); // Select elements with translation data
+
+            translatableElements.forEach(element => {
+                const englishText = element.dataset.en;
+                const finnishText = element.dataset.fi;
+
+                if (lang === 'fi' && finnishText) {
+                    element.textContent = finnishText;
+                } else {
+                    element.textContent = englishText;
+                }
+            });
+
+            // Update tab titles as well
+            const aboutButton = document.querySelector('.tablinks[onclick*="About"]');
+            const partiesButton = document.querySelector('.tablinks[onclick*="Parties"]');
+            const councillorsButton = document.querySelector('.tablinks[onclick*="Councillors"]');
+            const faqButton = document.querySelector('.tablinks[onclick*="FAQ"]');
+
+            if (lang === 'fi') {
+                aboutButton.textContent = 'Tietoa';
+                partiesButton.textContent = 'Puolueet';
+                councillorsButton.textContent = 'Valtuutetut';
+                faqButton.textContent = 'UKK';
+            } else {
+                aboutButton.textContent = 'About';
+                partiesButton.textContent = 'Parties';
+                councillorsButton.textContent = 'Councillors';
+                faqButton.textContent = 'FAQ';
+            }
+
+            populateCouncillorData();
+            
+            
+            const imageCaptions = document.querySelectorAll('.image-caption');
+            imageCaptions.forEach(caption => {
+            const englishText = caption.dataset.en;
+            const finnishText = caption.dataset.fi;
+
+            if (lang === 'fi' && finnishText) {
+                caption.innerHTML = finnishText;
+            } else {
+                caption.innerHTML = englishText;
+            }
+        });
+
+        const selectedPartyId = document.getElementById('partySelect').value;
+        const partyProfile = document.getElementById(selectedPartyId);
+
+        if (selectedPartyId) {
+            const summaryElement = partyProfile.querySelector('.manifesto-summary');
+            if (summaryElement) {
+                console.log("heey girl");
+            }
+
+            }
+        
+        
+
+    /*/If a party is selected we reload the entire content
+    if (selectedPartyId) {
+        const partyProfiles = document.querySelectorAll('.party-profile');
+
+        console.log("partyProfile 539: ", partyProfiles)
+        partyProfiles.forEach(profile => {
+            if (profile.id === selectedPartyId) {
+                let lang = localStorage.getItem('language') || 'en';
+
+                displayParty();
+
+                let translatedText = (lang === 'fi' && partyData.manifesto_summary_fi) ? partyData.manifesto_summary_fi : partyData.manifesto_summary_en;
+                summaryElement.innerHTML = translatedText;
+
+            }
+
+        })
+        populatePartyTab(partyData);
+
+    }
+    */
+
+             // Update the html tag lang attribute
+             document.documentElement.setAttribute('lang', lang);
+
+             //Force the html to be cleared and restarted
+        const searchInput = document.getElementById('councillorSearch');
+        const resultsContainer = document.getElementById('councillorResults');
+
+            resultsContainer.innerHTML = ''; // Clear previous results
+             //Recall the search function if it is not loaded
+        if (searchInput.value) {
+                // If there's a search term, trigger the search manually
+                searchInput.dispatchEvent(new Event('input')); //This part re-does the input
+
+             }
+
+        }
+
+        // Councillor Data and Search Functionality
+        let councillorData = []; // Initialize as an empty array
+
+        async function loadCouncillorData() {
+            try {
+                const response = await fetch('councillor_data.json'); // Path to your JSON file
+                councillorData = await response.json();
+                populateCouncillorData(); // Call the function to populate the search after loading data
+
+            } catch (error) {
+                console.error('Error loading councillor data:', error);
+                document.getElementById('councillorResults').textContent = 'Failed to load councillor data.';
+            }
+        }
+
+    function debounce(func, delay) {
+        let timeout;
+            return function(...args) {
+        const context = this;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), delay);
+                };
+        }
+
+
+        function displayCouncillor(councillor) {
+    const councillorProfile = document.createElement('div');
+    councillorProfile.classList.add('councillor-profile');
+
+    // Create a container for the image and info
+    const imageInfoContainer = document.createElement('div');
+    imageInfoContainer.classList.add('image-info-container');
+
+    const imageElement = document.createElement('img');
+    imageElement.src = councillor.img_filepath;
+    imageElement.alt = councillor.name;
+    imageElement.classList.add('councillor-image');
+
+    // Container for name, party, and speeches
+    const infoContainer = document.createElement('div');
+    infoContainer.classList.add('councillor-info-container');
+
+    const nameElement = document.createElement('h3');
+    nameElement.textContent = councillor.name;
+
+    const partyElement = document.createElement('p');
+    partyElement.innerHTML = `<strong>Party:</strong> ${councillor.party}`;
+
+    const speechesElement = document.createElement('p');
+    speechesElement.innerHTML = `<strong>Number of Speeches:</strong> ${councillor["number of speeches"]}`;
+
+    // Append name, party, and speeches to the info container
+    infoContainer.appendChild(nameElement);
+    infoContainer.appendChild(partyElement);
+    infoContainer.appendChild(speechesElement);
+
+    // Append the image and info container to the imageInfoContainer
+    imageInfoContainer.appendChild(imageElement);
+    imageInfoContainer.appendChild(infoContainer);
+
+    const lang = localStorage.getItem('language') || 'en'; // Default to English
+
+    // Select the correct summary based on the language
+    //console.log("Summary key:", summaryKey);
+    //console.log("Summary text:", summaryText);
+    // Use Marked.js to convert Markdown to HTML
+
+    const summaryKey = lang === 'fi' ? 'ai_summary_fi' : 'ai_summary';
+    const summaryText = councillor[summaryKey];
+    const summaryHTML = marked.parse(summaryText);
+    const summaryElement = document.createElement('div');  // Use a div
+    summaryElement.innerHTML = summaryHTML; // Set innerHTML
+
+
+
+    const separator = document.createElement('div');   //Add the separator
+    separator.classList.add('councillor-separator');
+
+    const separator2 = document.createElement('div');   //Add the separator
+    separator2.classList.add('councillor-separator');
+
+    const separator3 = document.createElement('div');   //Add the separator
+    separator3.classList.add('councillor-separator');
+
+    const englishText = '<strong>Key topics and political positioning of speeches</strong>';
+    const finnishText = '<strong>Puheiden pääaiheet ja poliittinen asemoituminen</strong>';
+
+    const textBoxElement = document.createElement('p');
+    const topicHeadline = lang == 'fi' ? finnishText : englishText;
+
+    textBoxElement.setAttribute('data-en',  englishText);  //Set the English Text
+    textBoxElement.setAttribute('data-fi',  finnishText);  //Set the Finnish Text
+    textBoxElement.classList.add('image-caption')
+    textBoxElement.innerHTML = topicHeadline;  //Set it with the text */
+
+
+         // Container for the two images side by side
+    const imageContainer = document.createElement('div');
+    imageContainer.classList.add('two-image-container');
+
+    // First image
+    const topicImage = document.createElement('img');
+    topicImage.src = councillor.topic_filepath;
+    topicImage.alt = "Topic Image";
+    topicImage.classList.add('side-image');
+
+    // Second image
+    const galTanImage = document.createElement('img');
+    galTanImage.src = councillor.galtan_filepath;
+    galTanImage.alt = "Gal Tan Image";
+    galTanImage.classList.add('side-image');
+
+    // Display the number of votes
+    const votesElement = document.createElement('p');
+    votesElement.innerHTML = `<strong>Votes in 2021 : ${councillor.votes}</strong>`;
+    votesElement.classList.add('votes-text');
+
+
+    const englishText2 = '<strong>From which areas did the councillor get their votes?</strong>';
+    const finnishText2 = '<strong>Miltä alueilta valtuutetun äänet tulivat</strong>';
+
+    const textBoxElement2 = document.createElement('p');
+    const topicHeadline2 = lang == 'fi' ? finnishText2 : englishText2;
+
+    textBoxElement2.setAttribute('data-en',  englishText2);  //Set the English Text
+    textBoxElement2.setAttribute('data-fi',  finnishText2);  //Set the Finnish Text
+    textBoxElement2.classList.add('image-caption')
+    textBoxElement2.innerHTML = topicHeadline2;  //Set it with the text */
+
+    // Map image
+    const mapImage = document.createElement('img');
+    mapImage.src = councillor.map_filepath;
+    mapImage.alt = "Map Image";
+    mapImage.classList.add('map-image');
+
+    // Append images to the container
+    imageContainer.appendChild(topicImage);
+    imageContainer.appendChild(galTanImage);
+
+    councillorProfile.appendChild(imageInfoContainer); //Append the image and info container
+
+    councillorProfile.appendChild(separator);  //Append the separator
+    councillorProfile.appendChild(summaryElement); //Append the summary last
+    councillorProfile.appendChild(separator2);
+    councillorProfile.appendChild(textBoxElement);
+    councillorProfile.appendChild(imageContainer)
+    councillorProfile.appendChild(separator3);
+    councillorProfile.appendChild(textBoxElement2);
+    councillorProfile.appendChild(votesElement);
+    councillorProfile.appendChild(mapImage);
+
+    return councillorProfile;
+}
+
+function populateCouncillorData() {
+        const searchInput = document.getElementById('councillorSearch');
+        const resultsContainer = document.getElementById('councillorResults');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = searchInput.value.toLowerCase();
+            resultsContainer.innerHTML = ''; // Clear previous results
+            console.log(councillorData);
+
+            if (searchTerm) {
+         const filteredCouncillors = councillorData.filter(councillor =>
+        councillor.name.toLowerCase().includes(searchTerm)
+        ).slice(0, 2); // Only get the first 5 results. Use a different number if you want more or less
+
+        if (filteredCouncillors.length > 0) {
+        filteredCouncillors.forEach(councillor => {
+            resultsContainer.appendChild(displayCouncillor(councillor));
+        });
+         } else {
+        resultsContainer.textContent = 'No councillors found matching your search.';
+    }
+}
+            // If the search term is empty, you might want to display all councillors, or nothing.
+            else {
+                //Option 1: Display all councillors when the search term is empty
+                //councillorData.forEach(councillor => {
+                //    resultsContainer.appendChild(displayCouncillor(councillor));
+                //});
+                //Option 2: Display nothing.
+            }
+        }
+        )}
+
+    function decodeHTMLEntities(text) {
+        const tempElement = document.createElement('textarea');
+        tempElement.innerHTML = text;
+        return tempElement.value;
+        }
+
+    function displayParty(partyData) {
+        console.log("displayParty called");
+        const partyProfile = document.createElement('div');
+        partyProfile.classList.add('party-profile');
+        partyProfile.id = partyData.id; // Add an ID to identify each party
+
+        const lang = localStorage.getItem('language') || 'en'; // Default to English
+        // Flex container for logo and party name
+        const logoNameContainer = document.createElement('div');
+        logoNameContainer.classList.add('logo-name-container');
+
+        const logoElement = document.createElement('img');
+        logoElement.src = partyData.logo;
+        logoElement.alt = `${partyData.party} Logo`;
+        logoElement.classList.add('party-logo');
+
+        const nameElement = document.createElement('h2');
+        nameElement.textContent = partyData.party;
+
+        logoNameContainer.appendChild(logoElement);
+        logoNameContainer.appendChild(nameElement);
+
+        // Manifesto summary 
+        const summary_fi = partyData.manifesto_summary_fi;
+        const summary_en = partyData.manifesto_summary_en;
+        const summaryElement = document.createElement('div');  // Use a div
+        summaryElement.classList.add("manifesto-summary");
+        // Ensure language selection
+        const summaryText = lang === 'fi' ? summary_fi : summary_en;
+        const summaryHTML = marked.parse(summaryText); // Convert Markdown to HTML
+        // Assign translated summaries
+        summaryElement.innerHTML = marked.parse(summaryText);
+
+
+        /*
+        const summaryElement = document.createElement('div');
+        const summaryText = lang == 'fi' ? partyData.manifesto_summary_fi : partyData.manifesto_summary_en;
+        const decodedText = decodeHTMLEntities(summaryText);
+        console.log("summarytext = ", summaryText);
+
+        summaryElement.setAttribute('data-en', partyData.manifesto_summary_en);
+        summaryElement.setAttribute('data-fi', partyData.manifesto_summary_fi);
+        summaryElement.classList.add('summary');
+        summaryElement.innerHTML = decodedText;
+
+        */
+
+        // First Separator
+        const separator1 = document.createElement('div');
+        separator1.classList.add('party-separator');
+
+        // Flex container for the graphs.
+        const graphContainer = document.createElement('div');
+        graphContainer.classList.add('image-container');
+
+        const galTanElement = document.createElement('img');
+        galTanElement.src = partyData.galtan;
+        galTanElement.alt = "Gal Tan Graph";
+        galTanElement.classList.add('graph-image');
+
+        const topicElement = document.createElement('img');
+        topicElement.src = partyData.topics;
+        topicElement.alt = "Topics Graph";
+        topicElement.classList.add('graph-image');
+
+        graphContainer.appendChild(galTanElement);
+        graphContainer.appendChild(topicElement);
+
+        // Second Separator
+        const separator2 = document.createElement('div');
+        separator2.classList.add('party-separator');
+
+
+        const englishText = '<strong>Key topics of speeches and political positioning of Councillors</strong>';
+        const finnishText = '<strong>Puheiden pääaiheet ja poliittinen asemoituminen</strong>';
+
+        const textBoxElement = document.createElement('p');
+        const topicHeadline = lang == 'fi' ? finnishText : englishText;
+
+        textBoxElement.setAttribute('data-en',  englishText);  //Set the English Text
+        textBoxElement.setAttribute('data-fi',  finnishText);  //Set the Finnish Text
+        textBoxElement.classList.add('image-caption')
+        textBoxElement.innerHTML = topicHeadline;  //Set it with the text */
+
+        const separator3 = document.createElement('div');
+        separator3.classList.add('party-separator');
+
+        const englishText2 = '<strong>From which areas did the parties get their votes?</strong>';
+        const finnishText2 = '<strong>Miltä alueilta puolueiden äänet tulivat</strong>';
+
+        const textBoxElement2 = document.createElement('p');
+        const topicHeadline2 = lang == 'fi' ? finnishText2 : englishText2;
+
+        textBoxElement2.setAttribute('data-en',  englishText2);  //Set the English Text
+        textBoxElement2.setAttribute('data-fi',  finnishText2);  //Set the Finnish Text
+        textBoxElement2.classList.add('image-caption')
+        textBoxElement2.innerHTML = topicHeadline2;  //Set it with the text */
+
+        // Map image
+        const mapElement = document.createElement('img');
+        mapElement.src = partyData.map;
+        mapElement.alt = "Map Image";
+        mapElement.classList.add('map-image');
+
+        partyProfile.appendChild(logoNameContainer);
+        partyProfile.appendChild(separator1);
+        partyProfile.appendChild(summaryElement);
+        partyProfile.appendChild(separator2);
+        partyProfile.appendChild(textBoxElement);
+        partyProfile.appendChild(graphContainer);
+        partyProfile.appendChild(separator3);
+        partyProfile.appendChild(textBoxElement2);
+        partyProfile.appendChild(mapElement);
+
+        return partyProfile;
+    }
+
+    let partyData = []; // Initialize as an empty array
+
+async function loadPartyData() {
+    console.log("loadPartyData called");
+    try {
+        const response = await fetch('party_data.json'); // Path to your JSON file
+        partyData = await response.json();
+        populatePartyDropdown(partyData);
+        populatePartyTab(partyData); // Call the function to display parties
+
+
+    } catch (error) {
+        console.error('Error loading party data:', error);
+        document.getElementById('partyTabContent').textContent = 'Failed to load party data.';
+    }
+}
+
+function populatePartyDropdown(partyArray) {
+    console.log("populatePartyDropdown called");
+    const selectElement = document.getElementById('partySelect');
+    selectElement.innerHTML = `<option value="" data-en="-- Select --" data-fi="-- Valitse --">-- Select --</option>`; // Clear existing options
+
+    partyArray.forEach(party => {
+        if (party && party.party) { // Check for valid party object and party name
+            const option = document.createElement('option');
+            option.value = party.party; // Use party name as the ID
+            option.textContent = party.party;
+            option.setAttribute('data-en', party.party); // for language switching
+            option.setAttribute('data-fi', party.party); // for language switching
+            selectElement.appendChild(option);
+        } else {
+            console.warn("Invalid party data:", party);
+        }
+    });
+
+    updateContent(localStorage.getItem('language') || 'en'); // Update language
+    selectElement.addEventListener('change', displaySelectedParty);
+}
+
+function populatePartyTab(partyArray) {
+    console.log("populatePartyTab called");
+    const resultsContainer = document.getElementById('partyTabContent');
+    resultsContainer.innerHTML = ''; // Clear previous content
+
+    partyArray.forEach(party => {
+        if (party && party.party) {  // Check if party and party.party are valid
+            const partyElement = displayParty(party);
+            partyElement.style.display = 'none'; // Ensure all are initially hidden
+            partyElement.id = party.party;   //<--- RE-ADD the party value as the ID
+            resultsContainer.appendChild(partyElement);
+        } else {
+            console.warn("Invalid party data:", party);  //Alert for invalid data
+        }
+    });
+
+    displaySelectedParty(); // Display the selected party
+}
+
+function displaySelectedParty() {
+    console.log("displaySelectedParty called");
+    const selectedPartyId = document.getElementById('partySelect').value;
+    const partyProfiles = document.querySelectorAll('.party-profile');
+
+    console.log("Selected Party ID:", selectedPartyId); // DEBUG: Check the selected ID
+    partyProfiles.forEach(profile => {
+        profile.style.display = 'none';
+    });
+
+    if (selectedPartyId) {
+        const selectedPartyProfile = document.getElementById(selectedPartyId);
+        if (selectedPartyProfile) {
+            console.log("Found profile for:", selectedPartyId); // DEBUG: Confirm profile found
+            selectedPartyProfile.style.display = 'block';
+        } else {
+            console.warn(`Party profile with ID ${selectedPartyId} not found.`);
+        }
+    }
+    updateContent(localStorage.getItem('language') || 'en'); // Update language
+}
+function updatePartyTab() {
+    console.log("updatePartyTab called");
+    const lang = localStorage.getItem('language') || 'en'; // Default to English
+    const partyProfiles = document.querySelectorAll('.party-profile');
+    partyProfiles.forEach(profile => {
+        const summaryElement = profile.querySelector('.manifesto-summary');
+        const englishText = summaryElement.dataset.en;
+        const finnishText = summaryElement.dataset.fi;
+
+        if (lang === 'fi' && finnishText) {
+            summaryElement.innerHTML = marked.parse(finnishText);
+        } else {
+            summaryElement.innerHTML = marked.parse(englishText);
+        }
+    });
+
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementsByClassName("tablinks")[0].click(); // Open first tab by default
+    loadLanguage();
+    loadCouncillorData();
+        setTimeout(loadPartyData, 500);
+})
+
+
+    </script>
+
+</body>
+</html>
