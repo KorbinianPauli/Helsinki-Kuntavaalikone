@@ -267,6 +267,7 @@
 .party-logo {
     width: 100px;  /* Adjust logo size as needed */
     height: 100px; /* Adjust logo size as needed */
+    object-fit: contain; /* Maintain aspect ratio */
     margin-right: 15px; /* Space between logo and name */
     border-radius: 8px; /* Optional: round the corners */
 }
@@ -413,7 +414,7 @@
         </div>
 
 <div id="About" class="tabcontent" style="display:none;">
-    <h2 data-en="Welcome to the Helsinki Municipal Election Machine" data-fi="Tervetuloa Helsingin kunnallisvaalikoneeseen">About this Project</h2>
+    <h3 data-en="Welcome to the Helsinki Municipal Election Machine" data-fi="Tervetuloa Helsingin kunnallisvaalikoneeseen">About this Project</h3>
 
     <p data-en="This project aims to provide an accessible and informative overview of what happened in the last legislative period of the Helsinki City Council.  
             It uses AI to summarise and visualise the contents of councillors' speeches as well as party manifestos for the municipal election to highlight key issues and political positions. 
@@ -436,7 +437,7 @@
                 I have used Large Language Models to analyse, classify and summarise speeches and the whole page is automated to a large extent. This means that some results may be biased or inaccurate. 
                 While every effort has been made to ensure accuracy, the results should still be interpreted with caution. As with everything on the internet, double check results and visit the official Helsinki City Council website for the most accurate information." data-fi="Tämän sivuston analyysit perustuvat Helsingin kaupunginvaltuuston julkisesti saatavilla oleviin kokouspöytäkirjoihin ajalta 2. elokuuta 2021 – 5. helmikuuta 2025. Olen käyttänyt suuria kielimalleja puheiden analysointiin, luokitteluun ja tiivistämiseen, ja koko sivu on automatisoitu suurelta osin. Tämä tarkoittaa, että jotkin tulokset voivat olla puolueellisia tai epätarkkoja. Vaikka tarkkuuden varmistamiseksi on pyritty kaikin tavoin, tuloksia tulee silti tulkita varoen. Kuten kaiken internetissä, tarkista tulokset ja käy Helsingin kaupungin virallisilla verkkosivuilla saadaksesi tarkimmat tiedot.">AI</li>
         <li data-en="Since I do not yet speak or write fluent Finnish, the Finnish part of this website has been translated with the help of AI tools. This means that some translations may sound unnatural or be grammatically inaccurate. For the most accurate experience, please refer to the English version of the website if you can." data-fi="Koska en vielä puhu tai kirjoita sujuvaa suomea, tämän verkkosivuston suomenkielinen osa on käännetty tekoälytyökalujen avulla. Tämä tarkoittaa, että jotkin käännökset voivat kuulostaa luonnottomilta tai olla kieliopillisesti epätarkkoja. Tarkimman kokemuksen saamiseksi, tutustu verkkosivuston englanninkieliseen versioon, jos voit.">Finnish</li>
-        <li data-en="This is only version 1 of the website and it is my goal to continously improve and add more features to this website. If you have any suggestions on what could be interesting, feel free to reach out or follow me on LinkedIn to get updates on the development." data-fi="Tämä on vasta verkkosivuston versio 1, ja tavoitteenani on jatkuvasti parantaa ja lisätä tälle verkkosivustolle uusia ominaisuuksia. Jos sinulla on ehdotuksia siitä, mikä voisi olla mielenkiintoista, ota rohkeasti yhteyttä tai seuraa minua LinkedInissä saadaksesi päivityksiä kehityksestä.">Version1</li>
+        <li data-en="This is only version 1 of the website and it is my goal to professionalise it, optimise it for mobile, and add more features to it. If you have any suggestions, feel free to reach out and follow me on LinkedIn to get updates on the development." data-fi="Tämä on vasta verkkosivuston versio 1, ja tavoitteenani on jatkuvasti parantaa ja lisätä tälle verkkosivustolle uusia ominaisuuksia. Jos sinulla on ehdotuksia siitä, mikä voisi olla mielenkiintoista, ota rohkeasti yhteyttä tai seuraa minua LinkedInissä saadaksesi päivityksiä kehityksestä.">Version1</li>
     </ul>
 </div>
 
@@ -601,14 +602,6 @@
 
         const selectedPartyId = document.getElementById('partySelect').value;
         const partyProfile = document.getElementById(selectedPartyId);
-
-        if (selectedPartyId) {
-            const summaryElement = partyProfile.querySelector('.manifesto-summary');
-            if (summaryElement) {
-                console.log("heey girl");
-            }
-
-            }
         
         
 
