@@ -14,12 +14,12 @@
         }
 
         .container {
-            width: 80%;
-            margin: 20px auto;
+            width: 100%;
+            margin: 0;
             background-color: #fff;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 0px;
+            box-shadow: none;
         }
 
         /* Tab Styles (Existing Styles) */
@@ -82,18 +82,19 @@
         /* Footer Styles (Existing Styles) */
         footer {
             text-align: center;
-            margin-top: 20px;
-            padding: 10px;
+            margin-top: 10px;
+            padding: 5px;
             background-color: #003366; /* Dark Marine Blue */
             color: white;
             border-radius: 8px;
+            font-size: 0.9em;
         }
 
        /* Language Switcher Styles (Existing Styles) */
         .language-switcher {
             position: absolute; /* Or 'fixed' if you want it to stay in place */
-            top: 20px; /* Adjust as needed */
-            right: 100px; /* Adjust as needed */
+            top: 10px; /* Adjust as needed */
+            right: 10px; /* Adjust as needed */
             z-index: 1000; /* Ensure it's above other elements */
         }
 
@@ -416,27 +417,28 @@
             <h2 data-en="Welcome to the Helsinki Municipal Election Machine" data-fi="Tervetuloa Helsingin kunnallisvaalikoneeseen">About this Project</h2>
         
             <p data-en="This project aims to provide an accessible and informative overview of what happened in the last legislative period of the Helsinki City Council.  
-            It uses AI to summarise and visualise the contents of councillors' speeches as well as party manifestos for the municipal election to highlight key issues and political positions. 
-            It is designed as an alternative to Yle's Vaalikone to help you find information on what has actually happened in the past legislative period and to make an informed voting decision."
+                    It uses AI to summarise and visualise the contents of councillors' speeches as well as party manifestos for the municipal election to highlight key issues and political positions. 
+                    It is designed as a retrospective alternative to Yle's forward looking Vaalikone and can help you find information on what was being discussed in the past legislative period by incumbent candidates."
                data-fi="Tämän hankkeen tavoitteena on tarjota helppokäyttöinen ja informatiivinen katsaus Helsingin kaupunginvaltuuston viimeisen vaalikauden tapahtumiin.  
-               Siinä käytetään tekoälyä tiivistämään ja visualisoimaan valtuutettujen puheenvuorojen sisältöä sekä puolueiden kunnallisvaalien ohjelmajulistuksia, jotta keskeiset kysymykset ja poliittiset kannanotot tulevat esiin. 
-               Se on suunniteltu vaihtoehdoksi Ylen Vaalikoneelle, joka auttaa sinua löytämään tietoa siitä, mitä kuluneella vaalikaudella on todellisuudessa tapahtunut, ja tekemään tietoon perustuvan äänestyspäätöksen."></p>
+                   Siinä käytetään tekoälyä tiivistämään ja visualisoimaan valtuutettujen puheenvuorojen sisältöä sekä puolueiden kunnallisvaalien ohjelmajulistuksia, jotta keskeiset kysymykset ja poliittiset kannanotot tulevat esiin. 
+                   Se on suunniteltu retrospektiiviseksi vaihtoehdoksi Ylen tulevaisuuteen suuntautuvalle Vaalikoneelle, ja se voi auttaa sinua löytämään tietoa siitä, mistä istuvat ehdokkaat keskustelivat kuluneella vaalikaudella."></p>
         
-            <h3 data-en="Select a Party or Search for a Councillor to see: " data-fi="Tietolähteet">Data Sources</h3>
+            <h3 data-en="Select a Party or Search for a Councillor to see: " data-fi="Valitse puolue tai hae valtuutettua nähdäksesi:">Data Sources</h3>
             <ul>
                 <li data-en="Their party manifesto or speeches summarised" data-fi="Heidän puolueensa ohjelma tai puheet tiivistettynä.">Helsinki City Council Meeting Minutes (2024)</li>
                 <li data-en="The left-right and gal-tan positioning of the parties' councillor and their speeches" data-fi="Puolueen/valtuutetun korostetuimmat aiheet">Publicly available councillor profiles</li>
-                <li data-en="The most emphasised topics of the party/councillor" data-fi="Julkisesti saatavilla olevat valtuutettujen profiilit">Publicly available councillor profiles</li>
+                <li data-en="The most emphasised topics of the party/councillor" data-fi="Puolueen/valtuutetun korostetuimmat aiheet">Publicly available councillor profiles</li>
                 <li data-en="A map that shows where the party/councillor got most of its votes from" data-fi="Kartta, josta käy ilmi, mistä puolue/valtuutettu sai eniten ääniä.">Publicly available councillor profiles</li>
             </ul>
-
+        
             <h3 data-en="Disclaimer" data-fi="Vastuuvapauslauseke">Disclaimer</h3>
-            <p data-en="This analysis is based on publicly available meeting minutes from the Helsinki City Council between 2nd August 2021 and 5th February 2025. 
-            It uses Large Language Models to analyse, classify and summarise speeches and is automated to a large extent. 
-            This means that some results may be biased or inaccurate. While every effort has been made to ensure accuracy, the results should be interpreted with caution.
-            Especially the Finnish language summaries, as current AI models are not as capable in small languages compared to the good results they show in English. "
-   data-fi="Tämä analyysi perustuu Helsingin kaupunginvaltuuston julkisesti saatavilla oleviin kokouspöytäkirjoihin ajalta 2. elokuuta 2021 - 5. helmikuuta 2025. Se käyttää suuria kielimalleja puheiden analysointiin, luokitteluun ja tiivistämiseen, ja se on automatisoitu suurelta osin. Tämä tarkoittaa, että jotkin tulokset voivat olla puolueellisia tai epätarkkoja. Vaikka tarkkuuden varmistamiseksi on pyritty kaikin tavoin, tuloksia tulee tulkita varoen. Erityisesti suomenkieliset tiivistelmät, koska nykyiset tekoälymallit eivät ole yhtä tehokkaita pienissä kielissä verrattuna hyviin tuloksiin, joita ne osoittavat englanniksi."></p>
-        </div>
+            <ul>
+                <li data-en="The analyses on this website are based on publicly available meeting minutes from the Helsinki City Council between 2nd August 2021 and 5th February 2025. 
+                        I have used Large Language Models to analyse, classify and summarise speeches and the whole page is automated to a large extent. This means that some results may be biased or inaccurate. 
+                        While every effort has been made to ensure accuracy, the results should still be interpreted with caution. As with everything on the internet, double check results and visit the official Helsinki City Council website for the most accurate information." data-fi="Tämän sivuston analyysit perustuvat Helsingin kaupunginvaltuuston julkisesti saatavilla oleviin kokouspöytäkirjoihin ajalta 2. elokuuta 2021 – 5. helmikuuta 2025. Olen käyttänyt suuria kielimalleja puheiden analysointiin, luokitteluun ja tiivistämiseen, ja koko sivu on automatisoitu suurelta osin. Tämä tarkoittaa, että jotkin tulokset voivat olla puolueellisia tai epätarkkoja. Vaikka tarkkuuden varmistamiseksi on pyritty kaikin tavoin, tuloksia tulee silti tulkita varoen. Kuten kaiken internetissä, tarkista tulokset ja käy Helsingin kaupungin virallisilla verkkosivuilla saadaksesi tarkimmat tiedot.">AI</li>
+                <li data-en="Since I do not yet speak or write fluent Finnish, the Finnish part of this website has been translated with the help of AI tools. This means that some translations may sound unnatural or be grammatically inaccurate. For the most accurate experience, please refer to the English version of the website if you can." data-fi="Koska en vielä puhu tai kirjoita sujuvaa suomea, tämän verkkosivuston suomenkielinen osa on käännetty tekoälytyökalujen avulla. Tämä tarkoittaa, että jotkin käännökset voivat kuulostaa luonnottomilta tai olla kieliopillisesti epätarkkoja. Tarkimman kokemuksen saamiseksi, tutustu verkkosivuston englanninkieliseen versioon, jos voit.">Finnish</li>
+                <li data-en="This is only version 1 of the website and it is my goal to continously improve and add more features to this website. If you have any suggestions on what could be interesting, feel free to reach out or follow me on LinkedIn to get updates on the development." data-fi="Tämä on vasta verkkosivuston versio 1, ja tavoitteenani on jatkuvasti parantaa ja lisätä tälle verkkosivustolle uusia ominaisuuksia. Jos sinulla on ehdotuksia siitä, mikä voisi olla mielenkiintoista, ota rohkeasti yhteyttä tai seuraa minua LinkedInissä saadaksesi päivityksiä kehityksestä.">Version1</li>
+            </ul>
 
        <div id="Parties" class="tabcontent">
             <h2 data-en="Parties" data-fi="Puolueet">Parties</h2>
@@ -464,45 +466,48 @@
         <div id="FAQ" class="tabcontent">
             <h2 data-en="Frequently Asked Questions" data-fi="Usein kysyttyjä kysymyksiä">Frequently Asked Questions</h2>
         
+            <h4 data-en="Who created this website?" data-fi="Kuka tämän sivuston on luonut?">creator</h4>
             <p data-en="The website was created by me, Korbinian Pauli. 
             I'm 25 years old, originally from Germany, and have a B.A. in Political and Computer Science and a M.Sc. in Social Data Science. 
             I made this website partially as a project to showcase my skills to potential employers, partially to improve my Finnish skills and partially so that people in Helsinki have a better alternative to Yle's Vaalikone.
-            I believe that it's important to know what Councillors and Parties have been talking about in City Council meetings and this website is an effort to make this information more easily accessible to a wider audience.  Including residents from other countries who are eligible to vote, but may find it difficult to find information in English.   " 
-            data-fi="Sivuston on luonut Korbinian Pauli. Olen 25-vuotias, alunperin Saksasta, ja minulla on kandidaatin tutkinto politiikan ja tietojenkäsittelytieteen alalta sekä maisterin tutkinto sosiaalisesta datatieteestä. Tein tämän sivuston osittain projektina esitelläkseni taitojani mahdollisille työnantajille, osittain parantaakseni suomen kielen taitojani ja osittain siksi, että helsinkiläisillä olisi parempi vaihtoehto Ylen Vaalikoneelle. Uskon, että on tärkeää tietää, mistä valtuutetut ja puolueet ovat puhuneet kaupunginvaltuuston kokouksissa, ja tämä sivusto on pyrkimys tehdä tästä tiedosta helpommin saavutettavaa laajemmalle yleisölle, mukaan lukien asukkaat muista maista, jotka ovat äänioikeutettuja, mutta joiden voi olla vaikea löytää tietoa englanniksi.">
-            <h4 data-en="Is the information displayed here accurate?" data-fi="Onko tässä esitetty tieto tarkkaa?">accuracy</h4>
+            I believe that it's important to know what Councillors and Parties have been talking about in City Council meetings and this website is an effort to make this information more easily accessible to a wider audience.  This includes residents from other countries who are eligible to vote, but may find it difficult to find information in English.   " 
+            data-fi="Tämän sivuston on luonut Korbinian Pauli. Olen 25-vuotias, alun perin Saksasta, ja minulla on kandidaatin tutkinto (B.A.) politiikasta ja tietojenkäsittelytieteistä sekä maisterin tutkinto (M.Sc.) sosiaalisesta datatieteestä. Olen tehnyt tämän sivuston osittain projektina, jolla esittelen osaamistani potentiaalisille työnantajille, osittain kehittääkseni suomen kielen taitojani, ja osittain tarjotakseni helsinkiläisille paremman vaihtoehdon Ylen Vaalikoneelle. Uskon, että on tärkeää tietää, mistä valtuutetut ja puolueet ovat keskustelleet kaupunginvaltuuston kokouksissa, ja tämä sivusto pyrkii tekemään tämän tiedon helpommin saavutettavaksi laajemmalle yleisölle. Tähän sisältyvät myös äänioikeutetut asukkaat muista maista, joiden voi olla vaikea löytää tietoa englanniksi.">
+        
+            <h4 data-en="Is the information displayed here accurate?" data-fi="Onko sivustolla esitetty tieto paikkansapitävää?">accuracy</h4>
             <p data-en="The summaries, left-right and topic classification results are AI generated and are therefore to be taken with a grain of salt. I have of course checked the English language results and they generally align with my understanding of the political situation. As with all things on the internet though, think critically and if in doubt, double check information from trusted sources such as the official website of the Helsinki City Council." 
-            data-fi="Yhteenvedot, vasen-oikea- ja aihepiiriluokittelutulokset ovat tekoälyn tuottamia, joten niihin on syytä suhtautua varauksella. Olen toki tarkistanut englanninkieliset tulokset, ja ne yleensä vastaavat käsitystäni poliittisesta tilanteesta. Kuten kaikkeen internetissä, suhtaudu kriittisesti ja tarkista epäilyttävät tiedot luotettavista lähteistä, kuten Helsingin kaupunginvaltuuston virallisilta verkkosivuilta."> accuracy</p>
-            <a href="https://paatokset.hel.fi/fi"> https://paatokset.hel.fi/fi</a>
-
-            <h4 data-en="Is this legal according to GDPR?" data-fi="Onko tämä laillista GDPR:n mukaan?">GDPR</h4>
+            data-fi="Sivuston tiivistelmät, vasemmisto-oikeisto- ja aihepiiriluokittelutulokset ovat tekoälyn tuottamia, joten niihin tulee suhtautua varauksella. Olen toki tarkistanut englanninkieliset tulokset, ja ne vastaavat pääosin omaa käsitystäni poliittisesta tilanteesta. Kuten muuhunkin internetissä, suhtaudu tietoon kriittisesti ja tarkista tiedot tarvittaessa luotettavista lähteistä, kuten Helsingin kaupungin virallisilta verkkosivuilta.">accuracy</p>
+            <a href="https://paatokset.hel.fi/fi">https://paatokset.hel.fi/fi</a>
+        
+            <h4 data-en="Is this legal according to GDPR?" data-fi="Onko tämä GDPR:n mukaista toimintaa?">GDPR</h4>
             <p data-en="Yes. The grounds for collecting this data falls within Art. 6 (1e) as this is carried out in the public interest. 
                 While political data is generally considered a special category of personal data according to Article 9 GDPR, the speeches in the Helsinki City Council are manifestly made public by the Councillors and related to substantial public interest.
-                The only data that is collected for this webpage is the name, party membership, all speeches in the City Council from the current legislative period and number of votes in the 2021 Municipal elections. I am commited to respecting privacy rights and ensuring data accuracy. If you believe any information is inaccurate, please reach out. " data-fi="Kyllä. Perusteet tämän tiedon keräämiselle kuuluvat artiklaan 6 (1e), koska tämä suoritetaan yleisen edun mukaisesti. Vaikka poliittisia tietoja pidetään yleensä henkilötietojen erityiskategoriana GDPR:n artiklan 9 mukaan, Helsingin kaupunginvaltuuston puheet ovat valtuutettujen selvästi julkisia ja liittyvät merkittävään yleiseen etuun. Ainoat tiedot, jotka kerätään tälle verkkosivulle, ovat nimi, puolueen jäsenyys, kaikki puheet kaupunginvaltuustossa nykyiseltä vaalikaudelta ja äänimäärä vuoden 2021 kunnallisvaaleissa. Olen sitoutunut kunnioittamaan yksityisyyden suojaa ja varmistamaan tietojen oikeellisuuden. Jos uskot, että jokin tieto on virheellinen, ota yhteyttä."> GDPR</p>
+                The only data that is collected for this webpage is the name, party membership, all speeches in the City Council from the current legislative period and number of votes in the 2021 Municipal elections. I am commited to respecting privacy rights and ensuring data accuracy. If you believe any information is inaccurate, please reach out. "
+                data-fi="Kyllä. Peruste tiedon keräämiselle on GDPR:n artikla 6 (1e), koska se toteutetaan yleisen edun mukaisesti. Vaikka poliittista tietoa pidetään yleisesti henkilötietojen erityisluokkana GDPR:n artiklan 9 mukaan, Helsingin kaupunginvaltuuston puheet ovat valtuutettujen toimesta nimenomaisesti julkisia ja liittyvät merkittävään yleiseen etuun. Ainoat tiedot, joita tällä verkkosivulla kerätään, ovat nimi, puolueen jäsenyys, kaikki kaupunginvaltuuston puheet nykyiseltä vaalikaudelta sekä vuoden 2021 kuntavaalien äänimäärä. Olen sitoutunut kunnioittamaan yksityisyyden suojaa ja varmistamaan tietojen paikkansapitävyyden. Jos uskot, että jokin tieto on virheellinen, ota minuun yhteyttä.">GDPR</p>
         
-            <h4 data-en="How do i get in contact?" data-fi="Miten saan yhteyttä?">contact</h4>
-            <p data-en="You can reach out on LinkedIn or via E-Mail if you have any suggestions, spotted an error, want custom made analyses for your organisation or hire a skilled data scientist :D" data-fi="Voit ottaa yhteyttä LinkedInissä tai sähköpostitse, jos sinulla on ehdotuksia, olet havainnut virheen, haluat räätälöityjä analyysejä organisaatiollesi tai haluat palkata ammattitaitoisen datatieteilijän."> contact</p>
-            <a href="https://www.linkedin.com/in/kpauli">Korbinian Pauli on LinkedIn</a>
-
+            <h4 data-en="How do i get in contact?" data-fi="Miten saan sinuun yhteyden?">contact</h4>
+            <p data-en="You can reach out on LinkedIn or via E-Mail if you have any suggestions, spotted an error, want custom made analyses for your organisation or hire a skilled data scientist :D" data-fi="Voit ottaa yhteyttä LinkedInissä tai sähköpostitse, jos sinulla on ehdotuksia, olet havainnut virheen, haluat räätälöityjä analyysejä organisaatiollesi tai haluat palkata osaavan datatieteilijän :D">contact</p>
+            <a href="https://www.linkedin.com/in/kpauli">Korbinian Pauli LinkedInissä</a>
+        
             <h4 data-en="How do i interpret the topic graph?" data-fi="Miten tulkitsen aihepiirikaaviota?">topic graphs</h4>
             <p data-en="For this graph, each individual speech was first classified into one or several topics by an LLM and how much of the speech was about that topic. 
             If a councillor spoke about public transport and mentioned environmental considerations along with it, the classification looked something akin to Public Transport: 70%, Environment: 30%. 
             The graphs then visualise the average issue emphasis on a councillor or party basis. A value of, for example, 9.6% for environmental issues means that about 9.6% of the time spoken was about environmental issues.
             It generally indicates which issues parties or councillors are focussing on. It does not say anything about what has been said however. The topics were taken from a survey of the Municipal development foundation (kaks.fi). "
-            data-fi="Tässä kaaviossa jokainen yksittäinen puhe luokiteltiin ensin yhteen tai useampaan aihepiiriin LLM:n avulla, ja määritettiin kuinka suuri osa puheesta koski kyseistä aihepiiriä. Jos valtuutettu puhui julkisesta liikenteestä ja mainitsi siihen liittyen ympäristönäkökohdat, luokittelu näytti suunnilleen tältä: Julkinen liikenne: 70 %, Ympäristö: 30 %. Kaaviot visualisoivat sitten keskimääräisen aihepainotuksen valtuutetun tai puolueen tasolla. Esimerkiksi arvo 9,6 % ympäristöasioissa tarkoittaa, että noin 9,6 % puhutusta ajasta koski ympäristöasioita. Se yleensä osoittaa, mihin asioihin puolueet tai valtuutetut keskittyvät. Se ei kuitenkaan kerro mitään siitä, mitä on sanottu. Aihepiirit on otettu Kunnallisalan kehittämissäätiön (kaks.fi) tekemästä kyselystä."> topic graphs</p>
-
-            <h4 data-en="How do i interpret the Left-Right/Gal-TAN graph?" data-fi="Miten tulkitsen vasemmisto-oikeisto/vihreä-arvot-kaaviota?">galtan graphs</h4>
+            data-fi="Tässä kaaviossa jokainen yksittäinen puhe luokiteltiin ensin yhteen tai useampaan aihepiiriin LLM:n avulla, ja määritettiin kuinka suuri osa puheesta koski kyseistä aihepiiriä. Jos valtuutettu puhui esimerkiksi julkisesta liikenteestä ja mainitsi ympäristönäkökulmia, luokittelu voisi olla: Julkinen liikenne: 70 %, Ympäristö: 30 %. Kaaviot visualisoivat sitten aiheiden keskimääräisen painoarvon valtuutetun tai puolueen tasolla. Esimerkiksi arvo 9,6 % ympäristöasioissa tarkoittaa, että noin 9,6 % puheajasta käsiteltiin ympäristöasioita. Kaavio yleisesti ottaen osoittaa, mihin asioihin puolueet tai valtuutetut keskittyvät. Se ei kuitenkaan kerro mitään siitä, mitä on sanottu. Aihepiirit on johdettu Kunnallisalan kehittämissäätiön (kaks.fi) tekemästä kyselystä.">topic graphs</p>
+        
+            <h4 data-en="How do i interpret the Left-Right/Gal-TAN graph?" data-fi="Miten tulkitsen vasemmisto-oikeisto / vihreä-liberaali -kaaviota?">galtan graphs</h4>
             <p data-en="On the party page, this graph shows the left-right and gal-tan positioning of all councillors (and deputies) of the party. Each dot represents a councillor. 
             For each councillor, i combined all their speeches into one document and asked an LLM to score the Councillor on the economic left right axis as well as gal-tan axis. A lower score on the x-axis means they are more left leaning and preferring government intervention in the economy, a higher score means they are more right leaning and prefering a free market.
             The gal-tan axis takes into account their stances on cultural and social issues. A lower score means they tend to be more progressive, open to multiculturalism, environmentalism etc, while a higher score indicates more traditional values, national sovereignty, stricter immigration policies etc. 
-            For the Councillor page, each dot represents a single speech."
-             data-fi="Puoluesivulla tämä kaavio näyttää kaikkien puolueen valtuutettujen (ja varajäsenten) vasemmisto-oikeisto- ja vihreä-arvot-sijoittelun. Jokaisen valtuutetun osalta yhdistin kaikki heidän puheensa yhdeksi dokumentiksi ja pyysin LLM:ää pisteyttämään valtuutetun sekä taloudellisella vasemmisto-oikeisto-akselilla että vihreä-arvot-akselilla. Pienempi pistemäärä x-akselilla tarkoittaa, että he ovat enemmän vasemmalle kallellaan ja suosivat hallituksen väliintuloa talouteen, suurempi pistemäärä tarkoittaa, että he ovat enemmän oikealle kallellaan ja suosivat vapaita markkinoita. Vihreä-arvot-akseli ottaa huomioon heidän kantansa kulttuurisiin ja sosiaalisiin kysymyksiin. Pienempi pistemäärä tarkoittaa, että he ovat yleensä edistyksellisempiä, avoimempia monikulttuurisuudelle, ympäristönsuojelulle jne., kun taas suurempi pistemäärä osoittaa perinteisempiä arvoja, kansallista itsemääräämisoikeutta, tiukempaa maahanmuuttopolitiikkaa jne. Valtuutettujen sivulla jokainen piste edustaa yhtä puhetta."> galtan graphs</p>
-
-             <h4 data-en="How do i interpret the Maps?" data-fi="Miten tulkitsen karttoja?">maps</h4>
-             <p data-en="The maps show where the party or councillor got most of their votes from in the 2021 municipal elections. The darker the color, the more votes they got from that area. 
+            For the Councillor page, each dot represents a single speech. An important disclaimer is that a lot of speeches are not perfectly representative of a councillors left-right/gal-tan position and have been classified as very centrist with a 4/4 or 5/5 mark. This is due to the fact, that 
+            a lot of times, councillors just argue constructively about the best way of implementing some policy which often times doesnt inhibit a clear left-right or gal-tan stance. If you are curious about a candidate's self assessed position, check out Yle's Kuntavaalikone."
+             data-fi="Puoluesivulla tämä kaavio näyttää kaikkien puolueen valtuutettujen (ja varajäsenten) sijoittumisen vasemmisto-oikeisto- ja vihreä-liberaali -akseleilla. Jokainen piste edustaa yhtä valtuutettua. Kullekin valtuutetulle yhdistin kaikki heidän puheensa yhdeksi dokumentiksi ja pyysin LLM:ää pisteyttämään valtuutetun sekä taloudellisella vasemmisto-oikeistoakselilla että vihreä-liberaaliakselilla. Pienempi pistemäärä x-akselilla tarkoittaa, että valtuutettu on enemmän vasemmalle suuntautunut ja kannattaa valtion interventiota talouteen, kun taas suurempi pistemäärä tarkoittaa, että hän on enemmän oikealle suuntautunut ja kannattaa vapaita markkinoita. Vihreä-liberaali -akseli ottaa huomioon heidän kantansa kulttuurisiin ja sosiaalisiin kysymyksiin. Pienempi pistemäärä tarkoittaa, että he ovat yleensä edistyksellisempiä, avoimempia monikulttuurisuudelle ja ympäristönsuojelulle jne., kun taas suurempi pistemäärä viittaa perinteisempiin arvoihin, kansalliseen itsemääräämisoikeuteen ja tiukempaan maahanmuuttopolitiikkaan jne. Valtuutettujen sivuilla jokainen piste edustaa yhtä puhetta. Tärkeä huomautus on, että monet puheet eivät täysin edusta valtuutetun vasemmisto-oikeisto- tai vihreä-liberaali -asemaa, ja ne on luokiteltu hyvin keskustalaisiksi arvosanalla 4/4 tai 5/5. Tämä johtuu siitä, että usein valtuutetut vain väittelevät rakentavasti parhaasta tavasta toteuttaa jokin politiikka, mikä ei useinkaan osoita selkeää vasemmisto-oikeisto- tai vihreä-liberaali -kantaa. Jos olet kiinnostunut ehdokkaan omasta arviosta, katso Ylen Kuntavaalikone.">galtan graphs</p>
+        
+            <h4 data-en="How do i interpret the Maps?" data-fi="Miten tulkitsen karttoja?">maps</h4>
+            <p data-en="The maps show where the party or councillor got most of their votes from in the 2021 municipal elections. The darker the color, the more votes they got from that area. 
              The data is based on the official election results Statistics Finland. For the Party page, the map shows the % of votes in each district that the party got, for individual Councillors, it shows the absolute number of votes.
              The map generally visualises where Parties get their votes from and showcases the political and demographic differences between districts quite well. SDP and PS get more votes in Eastern Helsinki, while Vasemmisto tends to do well in and around Kallio, while Kokoomus dominates richer areas such as the downtown parts of Helsinki. "
-              data-fi="Kartat näyttävät, mistä puolue tai valtuutettu sai suurimman osan äänistään vuoden 2021 kunnallisvaaleissa. Mitä tummempi väri, sitä enemmän ääniä he saivat kyseiseltä alueelta. Tiedot perustuvat Tilastokeskuksen virallisiin vaalituloksiin. Puoluesivulla kartta näyttää puolueen saamien äänien prosenttiosuuden kussakin piirissä, yksittäisten valtuutettujen osalta se näyttää äänien absoluuttisen määrän. Kartta visualisoi yleensä, mistä puolueet saavat äänensä, ja tuo esiin poliittiset ja demografiset erot piirien välillä melko hyvin. SDP ja PS saavat enemmän ääniä Itä-Helsingissä, kun taas Vasemmisto menestyy yleensä Kalliossa ja sen ympäristössä, kun taas Kokoomus hallitsee rikkaampia alueita, kuten Helsingin keskusta-alueita."> maps</p>
-        
+              data-fi="Kartat näyttävät, mistä puolue tai valtuutettu sai suurimman osan äänistään vuoden 2021 kuntavaaleissa. Mitä tummempi alue kartalla on, sitä enemmän ääniä sieltä on saatu. Tiedot perustuvat Tilastokeskuksen virallisiin vaalituloksiin. Puolueen sivulla kartta näyttää puolueen saaman ääniosuuden (%) kussakin vaalipiirissä, kun taas yksittäisen valtuutetun kohdalla näytetään alueelta saadut äänimäärät. Kartat visualisoivat yleisesti ottaen, mistä puolueet ja valtuutetut saavat kannatuksensa, ja tuovat esiin poliittisia ja demografisia eroja eri alueiden välillä. Esimerkiksi SDP ja PS saavat suhteellisesti enemmän ääniä Itä-Helsingistä, Vasemmistoliitto menestyy Kalliossa ja sen lähialueilla, kun taas Kokoomus on vahva vauraammilla alueilla, kuten Helsingin kantakaupungissa.">maps</p>
         </div>
 
         <footer>
