@@ -1,0 +1,824 @@
+/* Base Styles */
+:root {
+    --primary-color: #003366;  /* Dark blue */
+    --secondary-color: #004080;
+    --accent-color: #0059b3;
+    --light-accent: #e6f0ff;
+    --text-color: #333333;
+    --light-text: #ffffff;
+    --dark-text: #003366;
+    --background-color: #ffffff;
+    --light-bg: #f5f7fa;
+    --border-color: #e0e0e0;
+    --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Styles */
+header {
+    background-color: var(--background-color);
+    color: var(--dark-text);
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-bottom: 2px solid var(--light-accent);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    letter-spacing: -0.5px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-item {
+    margin: 0 20px;
+    position: relative;
+}
+
+.nav-item a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.05rem;
+    transition: var(--transition);
+    padding: 8px 0;
+}
+
+.nav-item a:hover {
+    color: var(--primary-color);
+}
+
+.nav-item.active a {
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--primary-color);
+}
+
+.language-switch {
+    display: flex;
+}
+
+.language-switch button {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-left: 15px;
+    opacity: 0.8;
+    transition: var(--transition);
+    padding: 5px 10px;
+}
+
+.language-switch button.active {
+    opacity: 1;
+    color: var(--primary-color);
+    font-weight: 500;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.language-switch button:hover {
+    opacity: 1;
+    color: var(--primary-color);
+}
+
+/* Main Content Styles */
+main {
+    min-height: calc(100vh - 130px);
+    padding: 40px 0;
+}
+
+section.page {
+    display: none;
+}
+
+section.page.active {
+    display: block;
+}
+
+h2 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+h3 {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+/* Home Page Styles */
+.hero {
+    text-align: center;
+    padding: 25px 0;
+    background: linear-gradient(135deg, var(--light-accent) 0%, #f5f7fa 100%);
+    border-radius: 12px;
+    margin-bottom: 60px;
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.hero p {
+    font-size: 1.4rem;
+    max-width: 700px;
+    margin: 0 auto 10px;
+    color: var(--text-color);
+    opacity: 0.9;
+    line-height: 1.6;
+    font-weight: 300;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    margin-bottom: 70px;
+}
+
+.feature-card {
+    background-color: var(--background-color);
+    padding: 40px 30px;
+    border-radius: 12px;
+    text-align: center;
+    transition: var(--transition);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+}
+
+.feature-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    border-color: var(--light-accent);
+}
+
+.feature-card i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    background: var(--light-accent);
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto 25px;
+}
+
+.feature-card h3 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.feature-card p {
+    opacity: 0.8;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.feature-card h3 {
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    opacity: 0.8;
+}
+
+.cta-section {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+.cta-section h3 {
+    font-size: 2.rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.cta-section p {
+    margin-bottom: 35px;
+    font-size: 1.15rem;
+    line-height: 1.8;
+}
+
+.cta-button {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    border: none;
+    padding: 15px 40px;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
+    box-shadow: 0 4px 6px rgba(0, 51, 102, 0.1);
+    letter-spacing: 0.5px;
+}
+
+.cta-button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 51, 102, 0.15);
+}
+
+.disclaimer-section {
+    background-color: #f8f9fa;
+    border-left: 4px solid var(--primary-color);
+    padding: 25px 30px;
+    margin: 50px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.disclaimer-section h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.disclaimer-section h3:before {
+    content: "⚠️";
+    margin-right: 10px;
+}
+
+.disclaimer-section p {
+    margin-bottom: 0;
+}
+
+.disclaimer-section ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.disclaimer-section li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.disclaimer-section li:last-child {
+    margin-bottom: 0;
+}
+
+/* Parties Page Styles */
+.party-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+/* Party Card & Councillor Card Styles */
+.party-card, .councillor-card {
+    background-color: var(--background-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+}
+
+.party-card:hover, .councillor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: var(--light-accent);
+}
+
+.party-logo {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--light-bg);
+    padding: 20px;
+}
+
+.councillor-image {
+    height: 220px;
+    background-color: var(--light-bg);
+    overflow: hidden;
+}
+
+.councillor-image img, .party-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: var(--transition);
+}
+
+.info-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--primary-color);  /* Changed to primary color (dark blue) */
+    color: white;  /* Changed to white text */
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    position: absolute;  /* Changed to absolute positioning */
+    top: 10px;  /* Position from top */
+    right: 10px;  /* Position from right */
+    z-index: 10;  /* Ensure it's above other elements */
+}
+
+.info-button:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.1);  /* Added a slight scale effect on hover */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);  /* Added shadow on hover */
+}
+
+.chart-container, .map-container {
+    position: relative;  /* Needed for absolute positioning of the button */
+}
+
+.graph-info-modal {
+    display: none;
+    position: absolute;
+    background: white;
+    border-radius: 8px;
+    padding: 15px 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    width: 80%;
+    max-width: 350px;
+    z-index: 100;
+    border: 1px solid var(--border-color);
+    top: 40px;
+    left: 20px;
+}
+
+.councillor-card:hover .councillor-image img, 
+.party-card:hover .party-logo img {
+    transform: scale(1.05);
+}
+
+.party-info, .councillor-info {
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.councillor-info .party-name {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* Councillors Page Styles */
+.search-filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.search-container {
+    display: flex;
+    position: relative;
+    max-width: 400px;
+    width: 100%;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 12px 50px 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: var(--transition);
+    background-color: var(--background-color);
+}
+
+.search-container input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.08);
+}
+
+.search-container button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.search-container button:hover {
+    background-color: var(--secondary-color);
+}
+
+.filter-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-container select {
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: var(--background-color);
+    cursor: pointer;
+}
+
+.filter-container select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.councillor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.councillor-card {
+    background-color: var(--light-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.councillor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.councillor-image {
+    height: 220px;
+    background-color: var(--background-color);
+    overflow: hidden;
+}
+
+.councillor-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.councillor-info {
+    padding: 20px;
+}
+
+.councillor-info h3 {
+    margin-bottom: 5px;
+}
+
+.councillor-info p {
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.councillor-info .party-name {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* Meetings Page Styles */
+.meetings-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.meeting-list-container {
+    background-color: var(--light-bg);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+}
+
+.meeting-list {
+    list-style: none;
+    margin-top: 20px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.meeting-list li {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.meeting-list li:last-child {
+    border-bottom: none;
+}
+
+.meeting-list li:hover {
+    background-color: rgba(0, 51, 102, 0.05);
+}
+
+.meeting-list li.active {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+}
+
+.meeting-summary {
+    background-color: var(--light-bg);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: var(--box-shadow);
+    min-height: 400px;
+}
+
+.meeting-summary .placeholder-message {
+    text-align: center;
+    color: #888;
+    padding: 100px 0;
+}
+
+.meeting-date {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* About Page Styles */
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.faq-item {
+    margin-bottom: 30px;
+}
+
+.faq-item h4 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.contact-info {
+    margin: 20px 0;
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+}
+
+.contact-info i {
+    margin-right: 10px;
+    color: var(--primary-color);
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.social-link:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-3px);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    overflow-y: auto;
+}
+
+.modal-content {
+    background-color: var(--background-color);
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 900px;
+    position: relative;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #888;
+    transition: var(--transition);
+}
+
+.close-modal:hover {
+    color: var(--primary-color);
+}
+
+/* Councillor Detail Styles */
+.councillor-detail-header {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.councillor-detail-image {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+}
+
+.councillor-detail-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.councillor-detail-info h2 {
+    margin-bottom: 10px;
+}
+
+.councillor-detail-info p {
+    margin-bottom: 10px;
+}
+
+.councillor-summary {
+    margin: 30px 0;
+    line-height: 1.8;
+}
+
+.councillor-charts {
+    margin-top: 30px;
+}
+
+.charts-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+.chart-container h4, .map-container h4 {
+    margin-bottom: 20px;  /* Adds space between title and graph */
+    padding-bottom: 10px; /* Extra padding for visual separation */
+    border-bottom: 1px solid var(--border-color); /* Optional: adds a subtle divider line */
+}
+
+.chart-container img, .map-container img {
+    margin-top: 15px; /* Additional top margin for the images */
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.chart-container {
+    background-color: var(--light-bg);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+}
+
+.map-container {
+    background-color: var(--light-bg);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+}
+
+/* Party Detail Styles */
+.party-detail-header {
+    margin-bottom: 30px;
+}
+
+.party-detail-logo {
+    max-width: 200px;
+    margin-bottom: 20px;
+}
+
+.party-summary {
+    margin: 30px 0;
+    line-height: 1.8;
+}
+
+/* Footer Styles */
+footer {
+    background-color: var(--light-bg);
+    color: var(--text-color);
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Responsive Styles */
+@media (max-width: 900px) {
+    .councillor-detail-header, .charts-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .meetings-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .nav-links {
+        margin: 15px 0;
+    }
+    
+    .features {
+        grid-template-columns: 1fr;
+    }
+}
