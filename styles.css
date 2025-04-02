@@ -423,6 +423,28 @@ p {
     font-weight: 500;
 }
 
+.party-summary {
+    margin: 30px 0;
+    line-height: 1.8;
+}
+
+.party-summary h3 {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.party-summary .national-manifesto-title {
+    margin-top: 40px;
+}
+
+.party-summary p {
+    margin-bottom: 15px;
+}
+
 /* Councillors Page Styles */
 .search-filter-container {
     display: flex;
@@ -606,6 +628,144 @@ p {
     font-size: 1.2rem;
     color: var(--primary-color);
     font-weight: 500;
+}
+
+/* --- ADDED/ADAPTED Initiatives Page Styles --- */
+.initiatives-container { /* Reusing meeting layout */
+    display: grid;
+    grid-template-columns: 350px 1fr; /* Slightly wider list */
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.initiative-list-container { /* Adapted from meeting */
+    background-color: var(--light-bg);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+    max-height: 70vh; /* Limit height */
+    display: flex; /* Enable flex for search + list */
+    flex-direction: column;
+}
+
+.initiative-list-container .search-container {
+    margin-bottom: 15px; /* Space below search */
+    flex-shrink: 0; /* Prevent search bar from shrinking */
+}
+
+.initiative-list { /* Adapted from meeting */
+    list-style: none;
+    margin-top: 0; /* Reset margin */
+    overflow-y: auto; /* Make list scrollable */
+    flex-grow: 1; /* Allow list to take remaining space */
+    padding-right: 10px; /* Space for scrollbar */
+}
+
+.initiative-list li { /* Adapted from meeting */
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: var(--transition);
+}
+/* Style for title and date within list item */
+.initiative-list li .initiative-title {
+    font-weight: 500;
+    display: block; /* Ensure title takes full width */
+    margin-bottom: 4px;
+}
+.initiative-list li .initiative-date {
+    font-size: 0.9em;
+    color: #666;
+    display: block; /* Ensure date takes full width */
+}
+
+
+.initiative-list li:last-child {
+    border-bottom: none;
+}
+
+.initiative-list li:hover {
+    background-color: rgba(0, 51, 102, 0.05);
+}
+
+.initiative-list li.active {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+}
+/* Ensure date color contrasts when active */
+.initiative-list li.active .initiative-date {
+    color: var(--light-accent);
+}
+
+
+.initiative-details { /* Adapted from meeting */
+    background-color: var(--light-bg);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: var(--box-shadow);
+    min-height: 400px; /* Same as meeting summary */
+    max-height: 70vh; /* Limit height */
+    overflow-y: auto; /* Scroll if content exceeds height */
+}
+
+.initiative-details .placeholder-message { /* Reusing meeting style */
+    text-align: center;
+    color: #888;
+    padding: 100px 0;
+}
+
+.initiative-detail-title {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.initiative-meta {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+}
+
+.initiative-meta span {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.initiative-meta strong {
+    color: var(--primary-color);
+    margin-right: 5px;
+}
+
+.initiative-summary-content {
+    margin-top: 20px;
+    line-height: 1.7;
+}
+.initiative-summary-content h4 { /* Style for summary heading */
+     font-size: 1.2rem;
+     color: var(--primary-color);
+     margin-bottom: 10px;
+     font-weight: 500;
+}
+
+.signatories-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 15px;
+    column-count: 2; /* Display in two columns if space allows */
+    column-gap: 20px;
+}
+
+.signatories-list li {
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    padding: 3px 0;
+    border-bottom: 1px dashed var(--border-color); /* Subtle separator */
+}
+.signatories-list li:last-child {
+    border-bottom: none;
 }
 
 /* About Page Styles */
@@ -806,6 +966,12 @@ footer {
     .meetings-container {
         grid-template-columns: 1fr;
     }
+    .initiatives-container { /* Stack on smaller screens */
+        grid-template-columns: 1fr;
+    }
+    .initiative-list-container, .initiative-details {
+        max-height: none; /* Remove height limit when stacked */
+    }
 }
 
 @media (max-width: 768px) {
@@ -820,5 +986,8 @@ footer {
     
     .features {
         grid-template-columns: 1fr;
+    }
+    .signatories-list {
+        column-count: 1; /* Single column on very small screens */
     }
 }

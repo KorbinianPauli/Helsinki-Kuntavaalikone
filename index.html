@@ -20,7 +20,9 @@
                     <li class="nav-item" data-page="parties"><a href="#parties">Parties</a></li>
                     <li class="nav-item" data-page="councillors"><a href="#councillors">Councillors</a></li>
                     <li class="nav-item" data-page="meetings"><a href="#meetings">Meetings</a></li>
+                    <li class="nav-item" data-page="initiatives"><a href="#initiatives">Initiatives</a></li>
                     <li class="nav-item" data-page="about"><a href="#about">About</a></li>
+           
                 </ul>
             </nav>
             <div class="language-switch">
@@ -145,6 +147,26 @@
             </div>
         </section>
 
+        <!-- ADDED Initiatives Page --> 
+        <section id="initiatives" class="page">
+            <div class="container">
+                <h2>Council Initiatives</h2>
+                <div class="initiatives-container"> 
+                    <div class="initiative-list-container"> 
+                        <div class="search-container">
+                            <input type="text" id="initiative-search" placeholder="Search by title, initiator, or date...">
+                            <button id="initiative-search-btn"><i class="fas fa-search"></i></button>
+                        </div>
+                        <ul class="initiative-list" id="initiative-list">
+                        </ul>
+                    </div>
+                    <div class="initiative-details" id="initiative-details"> 
+                        <div class="placeholder-message">Select an initiative to view its details.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- About Page -->
         <section id="about" class="page">
             <div class="container">
@@ -180,7 +202,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Helsinki City Council Tracker</p>
+            <p>&copy; Helsinki City Council Tracker</p>
         </div>
     </footer>
 
