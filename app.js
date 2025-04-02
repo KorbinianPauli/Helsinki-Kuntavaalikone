@@ -25,7 +25,6 @@ async function initApp() {
 
         // Set up language switcher
         setupLanguageSwitcher();
-        setTimeout(debugPartyData, 1000);
 
         console.log('Application initialized successfully');
     } catch (error) {
@@ -985,8 +984,6 @@ function displayPartyDetails(partyName) {
     partyDetails.innerHTML = detailsHTML;
 
     // Show modal
-    console.log("Helsinki Manifesto:", party[helsinkiSummaryKey]);
-    console.log("National Manifesto:", party[nationalSummaryKey]);
     partyModal.style.display = 'block';
 
     // Add info buttons after modal content is rendered and visible
@@ -1536,42 +1533,6 @@ function filterInitiatives() {
     } else {
         displayInitiativeDetails(-1); // No items match, show placeholder
     }
-}
-
-function debugPartyData() {
-    console.log('===== DEBUGGING PARTY DATA =====');
-    console.log('partyData type:', typeof partyData);
-    console.log('partyData length:', partyData ? partyData.length : 'undefined');
-    
-    if (!partyData || !partyData.length) {
-        console.error('Party data is empty or undefined');
-        return;
-    }
-    
-    // Check first party
-    const firstParty = partyData[0];
-    console.log('First party:', firstParty.party);
-    console.log('Available fields:', Object.keys(firstParty));
-    
-    // Check for manifesto fields specifically
-    console.log('manifesto_helsinki_en exists:', 'manifesto_helsinki_en' in firstParty);
-    console.log('manifesto_helsinki_fi exists:', 'manifesto_helsinki_fi' in firstParty);
-    console.log('manifesto_national_en exists:', 'manifesto_national_en' in firstParty);
-    console.log('manifesto_national_fi exists:', 'manifesto_national_fi' in firstParty);
-    
-    // Check Vihreat party specifically
-    const vihreat = partyData.find(p => p.party === 'Vihreät');
-    if (vihreat) {
-        console.log('Found Vihreät in party data');
-        console.log('Vihreät has manifesto_helsinki_en:', 'manifesto_helsinki_en' in vihreat);
-        console.log('Vihreät manifesto_helsinki_en type:', typeof vihreat.manifesto_helsinki_en);
-        console.log('Vihreät manifesto_helsinki_en sample:', 
-            vihreat.manifesto_helsinki_en ? vihreat.manifesto_helsinki_en.substring(0, 50) : 'empty');
-    } else {
-        console.log('Could not find Vihreät in party data');
-    }
-    
-    console.log('===== END DEBUG =====');
 }
 
 // Close all modals
