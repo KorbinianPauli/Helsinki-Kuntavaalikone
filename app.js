@@ -1050,7 +1050,7 @@ function renderCouncillors(filteredData = null) {
 
 
     // Limit to 24 councillors (or adjust as needed)
-    const limit = 24;
+    const limit = 32;
     const limitedData = sortedData.slice(0, limit);
 
     // Create councillor cards
