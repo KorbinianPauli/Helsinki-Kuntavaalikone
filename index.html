@@ -131,9 +131,16 @@
                 <h2>Council Meetings</h2>
                 <div class="meetings-container">
                     <div class="meeting-list-container">
-                        <div class="search-container">
-                            <input type="text" id="meeting-search" placeholder="Search by date...">
-                            <button id="meeting-search-btn"><i class="fas fa-search"></i></button>
+                        <div class="filter-section">
+                            <div class="filter-container">
+                                <select id="institution-filter">
+                                    <option value="all">All Institutions</option>
+                                </select>
+                            </div>
+                            <div class="search-container">
+                                <input type="text" id="meeting-search" placeholder="Search by date...">
+                                <button id="meeting-search-btn"><i class="fas fa-search"></i></button>
+                            </div>
                         </div>
                         <ul class="meeting-list" id="meeting-list">
                             <!-- Meeting dates will be populated here -->

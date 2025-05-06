@@ -580,13 +580,35 @@ p {
     border-radius: 10px;
     padding: 20px;
     box-shadow: var(--box-shadow);
+    display: flex;
+    flex-direction: column;
 }
 
-.meeting-list {
-    list-style: none;
-    margin-top: 20px;
-    max-height: 600px;
-    overflow-y: auto;
+.meeting-list li.active {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    position: relative;
+    border-left: 3px solid var(--accent-color);
+}
+
+/* Add styling for meeting institution when item is active */
+.meeting-list li.active .meeting-institution {
+    color: var(--light-accent);
+}
+/* Make dates visible when list item is active */
+.meeting-list li.active .meeting-date {
+    color: var(--light-text);
+}
+
+/* Add transition for smoother hover/active states */
+.meeting-list li {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border-left: 3px solid transparent;
 }
 
 .meeting-list li {
@@ -594,6 +616,39 @@ p {
     border-bottom: 1px solid var(--border-color);
     cursor: pointer;
     transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.meeting-list li .meeting-date {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.meeting-list li .meeting-institution {
+    font-size: 0.9em;
+    color: #555;
+    margin-left: 0;
+    display: block;
+}
+
+.meeting-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+.meeting-header .meeting-date {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.meeting-header .meeting-institution {
+    font-style: italic;
+    color: #555;
 }
 
 .meeting-list li:last-child {
@@ -607,6 +662,23 @@ p {
 .meeting-list li.active {
     background-color: var(--primary-color);
     color: var(--light-text);
+}
+/* Filter section styling */
+/* Fixed Meeting List Styles */
+.filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.filter-section .filter-container,
+.filter-section .search-container {
+    width: 100%;
+}
+
+.filter-section select {
+    margin-left: 5px;
 }
 
 .meeting-summary {
@@ -625,7 +697,7 @@ p {
 
 .meeting-date {
     margin-bottom: 20px;
-    font-size: 1.2rem;
+    font-size: 1.0rem;
     color: var(--primary-color);
     font-weight: 500;
 }

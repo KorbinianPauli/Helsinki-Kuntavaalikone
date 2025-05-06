@@ -56,7 +56,12 @@ async function loadData() {
 
 // ==Start of OCR for page 2==
         // Sort meeting data by date (most recent first)
-        meetingData.sort((a, b) => new Date(b.date) - new Date(a.date));
+                // Sort meeting data by date (most recent first) - using parseDate
+        meetingData.sort((a, b) => {
+                    const dateA = parseDate(a.date);
+                    const dateB = parseDate(b.date);
+                    return dateB - dateA;
+        });
 
         // <-- ADDED Sort initiative data by date (most recent first) -->
         initiativeData.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -83,6 +88,12 @@ function setupPages() {
 
     // Render meeting list and initial meeting
     renderMeetings();
+
+    // Populate party filter options
+    populatePartyFilter();
+    
+    // Populate institution filter options for meetings
+    populateInstitutionFilter();
 
     // <-- ADDED Render initiative list and initial initiative -->
     renderInitiatives();
@@ -232,7 +243,7 @@ function updateUIText() {
             disclaimer_item1: "The contents of this website are generated with the help of AI and may contain unintended biases or inaccuracies.",
             disclaimer_item2: "The Finnish translations are AI-generated and may contain linguistic imperfections.",
             disclaimer_item3: "For the best performance and accuracy, use this website on a desktop and in English.",
-            disclaimer_item4: "Consult the official Helsinki City Council website for definitive information.",
+            disclaimer_item4: "Consult the official Helsinki City Council website for definitive information.",            
 
             // Parties Page
             parties_title: "Political Parties",
@@ -250,6 +261,8 @@ function updateUIText() {
             // Meetings Page
             meetings_title: "Council Meetings",
             search_meetings: "Search by date...",
+            filter_by_institution: "Filter by institution:",
+            all_institutions: "All Institutions",
             meeting_placeholder: "Select a meeting date to view its summary.",
 
             // <-- ADDED Initiatives Page -->
@@ -322,10 +335,12 @@ function updateUIText() {
             filter_by_party: "Suodata puolueen mukaan:",
             all_parties: "Kaikki puolueet",
 
-            // Meetings Page
             meetings_title: "Valtuuston kokoukset",
             search_meetings: "Etsi päivämäärän mukaan...",
+            filter_by_institution: "Suodata instituution mukaan:",
+            all_institutions: "Kaikki instituutiot",
             meeting_placeholder: "Valitse kokouspäivä nähdäksesi yhteenvedon.",
+            
 
              // <-- ADDED Initiatives Page -->
             initiatives_title: "Valtuuston aloitteet",
@@ -425,11 +440,15 @@ function updateUIText() {
     if (allPartiesOption) allPartiesOption.textContent = lang.all_parties;
 
 
-    // Update Meetings page
+    // Update the meetings page section in updateUIText function
     const meetingsH2 = document.querySelector('#meetings h2');
     if(meetingsH2) meetingsH2.textContent = lang.meetings_title;
     const meetingSearchInput = document.getElementById('meeting-search');
     if(meetingSearchInput) meetingSearchInput.placeholder = lang.search_meetings;
+    const institutionFilterLabel = document.querySelector('#meetings label[for="institution-filter"]');
+    if(institutionFilterLabel) institutionFilterLabel.textContent = lang.filter_by_institution;
+    const allInstitutionsOption = document.querySelector('#institution-filter option[value="all"]');
+    if(allInstitutionsOption) allInstitutionsOption.textContent = lang.all_institutions;
     const meetingPlaceholder = document.querySelector('#meeting-summary .placeholder-message');
     if (meetingPlaceholder) {
         meetingPlaceholder.textContent = lang.meeting_placeholder;
@@ -536,6 +555,10 @@ function setupEventListeners() {
                 filterMeetings();
             }
         });
+    }
+    const institutionFilter = document.getElementById('institution-filter');
+    if (institutionFilter) {
+        institutionFilter.addEventListener('change', filterMeetings);
     }
 
      // <-- ADDED Initiative search functionality -->
@@ -669,6 +692,19 @@ function addInfoButtons() {
              // Optionally add a generic button or no button
         }
     });
+}
+
+// Update date parsing in displayMeetingSummary and renderMeetings functions
+function parseDate(dateString) {
+    // Check if date is in DD.MM.YYYY format
+    if (/^\d{2}\.\d{2}\.\d{4}$/.test(dateString)) {
+        const [day, month, year] = dateString.split('.').map(Number);
+        // JavaScript months are 0-indexed (0=January, 11=December)
+        return new Date(year, month - 1, day);
+    } else {
+        // Try standard date parsing as fallback
+        return new Date(dateString);
+    }
 }
 
 
@@ -1203,36 +1239,47 @@ function renderMeetings() {
     meetingList.innerHTML = '';
 
     // Create meeting list items
-    meetingData.forEach((meeting, index) => {
-        const listItem = document.createElement('li');
-        listItem.setAttribute('data-index', index);
-// ==End of OCR for page 24==
-
-// ==Start of OCR for page 25==
-        // Format date: DD Month, YYYY based on language
-        const date = new Date(meeting.date);
-        const formattedDate = date.toLocaleDateString(currentLanguage === 'en' ? 'en-GB' : 'fi-FI', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        });
-
-        listItem.textContent = formattedDate;
-
-        // Add click event to show meeting summary
-        listItem.addEventListener('click', function() {
-            // Remove active class from all items
-            meetingList.querySelectorAll('li').forEach(item => {
-                item.classList.remove('active');
-            });
-            // Add active class to clicked item
-            listItem.classList.add('active');
-            // Display meeting summary
-            displayMeetingSummary(index);
-        });
-
-        meetingList.appendChild(listItem);
+// Inside the renderMeetings function where meeting list items are created
+meetingData.forEach((meeting, index) => {
+    const listItem = document.createElement('li');
+    listItem.setAttribute('data-index', index);
+    
+    // Format date: DD Month, YYYY based on language
+    const date = parseDate(meeting.date);
+    const formattedDate = date.toLocaleDateString(currentLanguage === 'en' ? 'en-GB' : 'fi-FI', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
     });
+
+    // Create container for date and institution
+    const dateContainer = document.createElement('span');
+    dateContainer.className = 'meeting-date';
+    dateContainer.textContent = formattedDate;
+    
+    // Create container for institution and add it
+    const institutionContainer = document.createElement('span');
+    institutionContainer.className = 'meeting-institution';
+    institutionContainer.textContent = meeting.institution || '';
+    
+    // Clear existing content and append new elements
+    listItem.appendChild(dateContainer);
+    listItem.appendChild(institutionContainer);
+
+    // Add click event to show meeting summary
+    listItem.addEventListener('click', function() {
+        // Remove active class from all items
+        meetingList.querySelectorAll('li').forEach(item => {
+            item.classList.remove('active');
+        });
+        // Add active class to clicked item
+        listItem.classList.add('active');
+        // Display meeting summary
+        displayMeetingSummary(index);
+    });
+
+    meetingList.appendChild(listItem);
+});
 
 
     // Select first meeting by default if data exists
@@ -1248,50 +1295,83 @@ function renderMeetings() {
     }
 }
 
+    // Add this function to populate the institution filter
+function populateInstitutionFilter() {
+    const institutionFilter = document.getElementById('institution-filter');
+    if (!institutionFilter) return;
 
-// Filter meetings based on search
-function filterMeetings() {
-    const meetingSearch = document.getElementById('meeting-search');
-    const meetingList = document.getElementById('meeting-list');
+    // Clear existing options except the "All Institutions" default
+    institutionFilter.innerHTML = `<option value="all">${currentLanguage === 'en' ? 'All Institutions' : 'Kaikki instituutiot'}</option>`;
 
-    if (!meetingSearch || !meetingList) return;
-// ==End of OCR for page 25==
-
-// ==Start of OCR for page 26==
-    const searchTerm = meetingSearch.value.toLowerCase().trim();
-
-    let firstVisibleIndex = -1; // Track the first matching item
-
-    // Filter list items
-    const items = meetingList.querySelectorAll('li');
-    items.forEach((item, index) => {
-        const dateText = item.textContent.toLowerCase();
-        // Basic date search (matches any part of the formatted date string)
-        if (searchTerm === '' || dateText.includes(searchTerm)) {
-            item.style.display = 'block';
-            if (firstVisibleIndex === -1) {
-                firstVisibleIndex = item.getAttribute('data-index'); // Get original index
-            }
-            item.classList.remove('active'); // Remove active class during filtering
-        } else {
-            item.style.display = 'none';
-            item.classList.remove('active');
-        }
-    });
-
-    // Display the summary of the first visible item, or placeholder if none
-    if (firstVisibleIndex !== -1) {
-         const firstVisibleItem = meetingList.querySelector(`li[data-index="${firstVisibleIndex}"]`);
-         if(firstVisibleItem) {
-            firstVisibleItem.classList.add('active'); // Highlight the first match
-            displayMeetingSummary(parseInt(firstVisibleIndex));
-         } else {
-             displayMeetingSummary(-1); // Should not happen, but fallback
-         }
-    } else {
-        displayMeetingSummary(-1); // No items match, show placeholder
+    // Get unique institutions from meeting data
+    if (!meetingData || meetingData.length === 0) {
+        console.warn("Meeting data not available for institution filter population.");
+        return;
     }
+    const uniqueInstitutions = [...new Set(meetingData.map(meeting => meeting.institution))]
+                              .filter(institution => institution); // Filter out null/empty values
+
+    // Sort institutions alphabetically
+    uniqueInstitutions.sort((a, b) => a.localeCompare(b, 'fi'));
+
+    // Create and append options
+    uniqueInstitutions.forEach(institution => {
+        const option = document.createElement('option');
+        option.value = institution;
+        option.textContent = institution;
+        institutionFilter.appendChild(option);
+    });
 }
+
+
+    // Filter meetings based on search
+    function filterMeetings() {
+        const meetingSearch = document.getElementById('meeting-search');
+        const institutionFilter = document.getElementById('institution-filter');
+        const meetingList = document.getElementById('meeting-list');
+
+        if (!meetingSearch || !meetingList) return;
+        
+        const searchTerm = meetingSearch.value.toLowerCase().trim();
+        const selectedInstitution = institutionFilter ? institutionFilter.value : 'all';
+
+        let firstVisibleIndex = -1; // Track the first matching item
+
+        // Filter list items
+        const items = meetingList.querySelectorAll('li');
+        items.forEach((item, index) => {
+            const dateText = item.querySelector('.meeting-date')?.textContent.toLowerCase() || '';
+            const institutionText = item.querySelector('.meeting-institution')?.textContent || '';
+            
+            // Date search and institution filter
+            const dateMatch = searchTerm === '' || dateText.includes(searchTerm);
+            const institutionMatch = selectedInstitution === 'all' || institutionText === selectedInstitution;
+            
+            if (dateMatch && institutionMatch) {
+                item.style.display = 'block';
+                if (firstVisibleIndex === -1) {
+                    firstVisibleIndex = parseInt(item.getAttribute('data-index'));
+                }
+                item.classList.remove('active'); // Remove active class during filtering
+            } else {
+                item.style.display = 'none';
+                item.classList.remove('active');
+            }
+        });
+
+        // Display the summary of the first visible item, or placeholder if none
+        if (firstVisibleIndex !== -1) {
+            const firstVisibleItem = meetingList.querySelector(`li[data-index="${firstVisibleIndex}"]`);
+            if(firstVisibleItem) {
+            firstVisibleItem.classList.add('active'); // Highlight the first match
+            displayMeetingSummary(firstVisibleIndex);
+            } else {
+                displayMeetingSummary(-1); // Should not happen, but fallback
+            }
+        } else {
+            displayMeetingSummary(-1); // No items match, show placeholder
+        }
+    }
 
 
 // Display meeting summary based on index
@@ -1325,16 +1405,18 @@ function displayMeetingSummary(index) {
     const summaryKey = currentLanguage === 'en' ? 'summary_en' : 'summary_fi';
 
     // Format date: DD Month, YYYY
-    const date = new Date(meeting.date);
+    const date = parseDate(meeting.date);
     const formattedDate = date.toLocaleDateString(currentLanguage === 'en' ? 'en-GB' : 'fi-FI', {
         day: 'numeric',
         month: 'long',
         year: 'numeric'
     });
 
-    // Build meeting summary content
     let summaryHTML = `
-        <div class="meeting-date">${formattedDate}</div>
+        <div class="meeting-header">
+            <div class="meeting-date">${formattedDate}</div>
+            <div class="meeting-institution">${meeting.institution || ''}</div>
+        </div>
         <div class="meeting-content">
             ${formatMarkdown(meeting[summaryKey] || (currentLanguage === 'en' ? 'No summary available.' : 'Yhteenvetoa ei saatavilla.'))}
         </div>
@@ -1619,4 +1701,6 @@ function escapeHtml(unsafe) {
          .replace(/'/g, "'");
 }
 */
+
+
 
