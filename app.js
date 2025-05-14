@@ -696,15 +696,35 @@ function addInfoButtons() {
 
 // Update date parsing in displayMeetingSummary and renderMeetings functions
 function parseDate(dateString) {
-    // Check if date is in DD.MM.YYYY format
-    if (/^\d{2}\.\d{2}\.\d{4}$/.test(dateString)) {
-        const [day, month, year] = dateString.split('.').map(Number);
-        // JavaScript months are 0-indexed (0=January, 11=December)
-        return new Date(year, month - 1, day);
-    } else {
-        // Try standard date parsing as fallback
-        return new Date(dateString);
+
+    if (typeof dateString !== 'string') {
+        console.warn('parseDate received non-string input:', dateString);
+        return new Date(NaN); // Return an invalid date object
     }
+
+    // Try YYYY-MM-DD (with optional time)
+    const yyyyMmDdMatch = dateString.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (yyyyMmDdMatch) {
+        return new Date(dateString); // Directly use the string for Date constructor
+    }
+
+    // Try DD.MM.YYYY
+    const ddMmYyyyMatch = dateString.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+    if (ddMmYyyyMatch) {
+        const day = parseInt(ddMmYyyyMatch[1], 10);
+        const month = parseInt(ddMmYyyyMatch[2], 10); // Month is 1-indexed here
+        const year = parseInt(ddMmYyyyMatch[3], 10);
+        // Create Date object using local timezone components
+        return new Date(year, month - 1, day); // month - 1 for 0-indexed JS months
+    }
+    
+    console.warn(`Date string "${dateString}" did not match known formats (YYYY-MM-DD or DD.MM.YYYY). Attempting direct parsing.`);
+    const parsedDate = new Date(dateString); // Fallback to direct parsing
+    if (isNaN(parsedDate.getTime())) {
+        console.error(`Direct parsing of "${dateString}" resulted in an invalid date.`);
+        return new Date(NaN); // Return an invalid date object if fallback fails
+    }
+    return parsedDate;
 }
 
 
@@ -1405,7 +1425,9 @@ function displayMeetingSummary(index) {
     const summaryKey = currentLanguage === 'en' ? 'summary_en' : 'summary_fi';
 
     // Format date: DD Month, YYYY
+    console.log('Parsing date:', meeting.date); // Debugging line
     const date = parseDate(meeting.date);
+    console.log('Parsed date:', date); // Debugging line
     const formattedDate = date.toLocaleDateString(currentLanguage === 'en' ? 'en-GB' : 'fi-FI', {
         day: 'numeric',
         month: 'long',
